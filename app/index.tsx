@@ -110,7 +110,7 @@ export default function App() {
       <ScrollView>
         <View className="pt-24" />
 
-        {/* Categories Section */}
+        
         <View className="flex-row justify-around mb-4">
           {['building', 'store', 'restaurant', 'car', 'barber'].map((category) => (
             <CategoryIcon key={category} name={category} />
