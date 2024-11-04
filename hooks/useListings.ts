@@ -33,12 +33,12 @@ export const useFeaturedListings = () => {
   return useQuery({
     queryKey: ['featuredListings'],
     queryFn: async () => {
-      const resultList = await pb
-        .collection('listings')
-        .getList(1, 5, {
-          filter: 'featured = true',
-          expand: 'category',
-        });
+      // const resultList = await pb
+      //   .collection('listings')
+      //   .getList(1, 5, {
+      //     filter: 'featured = true',
+      //     expand: 'category',
+      //   });
 
       return resultList.items;
     },
