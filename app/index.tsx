@@ -7,7 +7,7 @@ const Page = () => {
   // Call isSignedIn() to evaluate the return value
   if (isSignedIn()) return <Redirect href="/(root)/(tabs)/home" />;
 
-  return <Redirect href="/(auth)/signin" />;
+  return <Redirect href="/(auth)/sign-in" />;
 };
 
 export default Page;

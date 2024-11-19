@@ -1,51 +1,49 @@
-import {
-  TextInput,
-  View,
-  Text,
-  Image,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Platform,
-} from "react-native";
+import React from "react";
+import { Controller } from "react-hook-form";
+import { View, TextInput, Text } from "react-native";
 
-import { InputFieldProps } from "@/types/type";
+interface InputFieldProps {
+  label: string;
+  placeholder: string;
+  icon: React.ReactNode;
+  secureTextEntry?: boolean;
+  textContentType?: string;
+  control: any; // Pass control from useForm
+  name: string; // Name of the form field
+  error?: any; // Validation error message
+}
 
-const InputField = ({
+const InputField: React.FC<InputFieldProps> = ({
   label,
+  placeholder,
   icon,
-  secureTextEntry = false,
-  labelStyle,
-  containerStyle,
-  inputStyle,
-  iconStyle,
-  className,
-  ...props
-}: InputFieldProps) => {
+  secureTextEntry,
+  textContentType,
+  control,
+  name,
+  error,
+}) => {
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View className="my-2 w-full">
-          <Text className={`text-lg font-JakartaSemiBold mb-3 ${labelStyle}`}>
-            {label}
-          </Text>
-          <View
-            className={`flex flex-row justify-start items-center relative bg-neutral-100 rounded-full border border-neutral-100 focus:border-primary-500  ${containerStyle}`}
-          >
-            {icon && (
-              <Image source={icon} className={`w-6 h-6 ml-4 ${iconStyle}`} />
-            )}
+    <View>
+      <Text>{label}</Text>
+      <Controller
+        control={control}
+        name={name}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <>
             <TextInput
-              className={`rounded-full p-4 font-JakartaSemiBold text-[15px] flex-1 ${inputStyle} text-left`}
+              placeholder={placeholder}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
               secureTextEntry={secureTextEntry}
-              {...props}
+              textContentType={textContentType}
             />
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+            {error && <Text style={{ color: "red" }}>{error.message}</Text>}
+          </>
+        )}
+      />
+    </View>
   );
 };
 
