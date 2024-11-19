@@ -1,26 +1,13 @@
-import { Stack, Link } from 'expo-router';
-import { Text, View} from 'react-native';
+import { Redirect } from "expo-router";
+import { useAuth } from "~/lib/appwriteprovider"; // Adjust path as necessary
 
-import { Button } from '~/components/Button';
-import { Container } from '~/components/Container';
-import { ScreenContent } from '~/components/ScreenContent';
+const Page = () => {
+  const { isSignedIn } = useAuth();
 
+  // Call isSignedIn() to evaluate the return value
+  if (isSignedIn()) return <Redirect href="/(root)/(tabs)/home" />;
 
+  return <Redirect href="/(auth)/signin" />;
+};
 
-export default function Home() {
-  return (
-    <>
-      <Stack.Screen options={{ title: 'Home' }} />
-      <Container>
-        <ScreenContent path="app/index.tsx" title="Home">
-         <View className='h-40 w-full rounded-3xl bg-orange-700'>
-            <Text className='text-white p-10 text-center font-bold text-4xl'>Fundi wangu</Text>
-         </View>
-        </ScreenContent>
-        <Link href={{ pathname: '/details', params: { name: 'Dan' } }} asChild>
-          <Button title="Show Details" />
-        </Link>
-      </Container>
-    </>
-  );
-}
+export default Page;
