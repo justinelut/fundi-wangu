@@ -3,12 +3,12 @@ import { useState } from "react";
 import { Alert, Image, ScrollView, Text, View } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"; // Import Zod resolver
-import InputField from "~/components/InputField";
-import { icons, images } from "~/constants";
-import { useAuth } from "~/lib/appwriteprovider"; // Adjust path if necessary
+import InputField from "@/components/InputField";
+import { icons, images } from "@/constants";
+import { useAuth } from "@/lib/appwriteprovider"; // Adjust path if necessary
 
-import { signInSchema, SignInForm } from "~/lib/validation"; // Import schema
-import CustomButton from "~/components/CustomButton";
+import { signInSchema, SignInForm } from "@/lib/validation"; // Import schema
+import CustomButton from "@/components/CustomButton";
 
 const SignIn = () => {
   const { signIn } = useAuth(); // Get the signIn function from context

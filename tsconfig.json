@@ -4,15 +4,14 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "*"
-      ],
-      "@/*": [
-        "./*"
-      ],
-      "tailwind.config": [
-        "./tailwind.config.js"
-      ]
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"],
+      "@screen/*": ["src/screen/*"],
+      "@api/*": ["src/api/*"],
+      "@type/*": ["src/type/*"],
+      "~/*": ["./*"],
+      "@/*": ["src/*"],
+      "tailwind.config": ["./tailwind.config.js"]
     }
   },
   "include": [

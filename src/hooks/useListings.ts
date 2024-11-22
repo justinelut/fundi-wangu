@@ -1,6 +1,6 @@
 // hooks/useListings.ts
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { pb } from '../lib/pocketbase';
+import { pb } from '../src/lib/pocketbase';
 import type { Listing } from '../types/listings';
 
 export const useListings = (perPage: number = 10) => {

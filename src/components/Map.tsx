@@ -3,7 +3,7 @@ import { ActivityIndicator, Text, View } from "react-native";
 import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
-import { icons } from "@/constants";
+import { icons } from "~/src/constants";
 import { useFetch } from "@/lib/fetch";
 import {
   calculateDriverTimes,

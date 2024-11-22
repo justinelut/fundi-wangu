@@ -1,6 +1,6 @@
 import { Image, Text, View } from "react-native";
 
-import { icons } from "@/constants";
+import { icons } from "~/src/constants";
 import { formatDate, formatTime } from "@/lib/utils";
 import { Ride } from "@/types/type";
 
