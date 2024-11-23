@@ -1,44 +1,56 @@
 {
   "expo": {
-    "name": "Fundi Wangu",
+    "name": "fundi-wangu",
     "slug": "fundi-wangu",
     "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./src/assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./src/assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#2F80ED"
+    "scheme": "fundi-wangu",
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png"
     },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-dev-launcher",
+        {
+          "launchMode": "most-recent"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "tsconfigPaths": true
+    },
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.justine-dev.fundiwangu"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.justine_dev.fundiwangu"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "6c24a6c0-b282-44ee-a1b4-b7eb4c3de762"
       }
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "server",
-      "favicon": "./src/assets/images/favicon.png"
-    },
-    "plugins": [
-      [
-        "expo-router",
-        {
-          "origin": "https://uber.dev/",
-          "root": "./src"
-        }
-      ],
-      "expo-font",
-      "expo-secure-store"
-    ],
-    "experiments": {
-      "typedRoutes": true
     }
   }
 }
