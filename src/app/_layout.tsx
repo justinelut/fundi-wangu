@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
+import QueryProvider from '@/lib/query-client-provider';
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
@@ -27,13 +28,15 @@ export default function Layout() {
     return null;
   }
   return (
-    <AuthProvider>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        {/* <Stack.Screen name="(root)" options={{ headerShown: false }} />  */}
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </AuthProvider>
+    <QueryProvider>
+      <AuthProvider>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          {/* <Stack.Screen name="(root)" options={{ headerShown: false }} />  */}
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </AuthProvider>
+    </QueryProvider>
   );
 }

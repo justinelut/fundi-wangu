@@ -1,30 +1,35 @@
-import { Link, router } from "expo-router";
-import { useState } from "react";
-import { Alert, Image, ScrollView, Text, View } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, Text, View, Alert } from "react-native";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod"; // Import Zod resolver
-import InputField from "@/components/InputField";
-import { icons, images } from "@/constants";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/lib/appwriteprovider"; // Adjust path if necessary
-
-import { signInSchema, SignInForm } from "@/lib/validation"; // Import schema
+import InputField from "@/components/InputField"; // Ensure correct path
 import CustomButton from "@/components/CustomButton";
+import { signInSchema, SignInForm } from "@/lib/validation"; // Adjust path for your schema
+import { Link, router } from "expo-router";
+import { icons, images } from "@/constants";
 
 const SignIn = () => {
-  const { signIn } = useAuth(); // Get the signIn function from context
-  const { control, handleSubmit, formState: { errors }, setValue } = useForm<SignInForm>({
-    resolver: zodResolver(signInSchema), // Use the Zod schema resolver
-    defaultValues: { email: "", password: "" },
+  const { signIn } = useAuth();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInForm>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Handle form submission
   const onSignInPress = async (data: SignInForm) => {
     setIsSubmitting(true);
     try {
-      await signIn(data.email, data.password); // Call the signIn function
-      router.replace("/") // Redirect to home after successful sign-in
+      await signIn(data.email, data.password);
+      router.replace("/"); // Redirect to homepage
     } catch (error) {
       console.error("Sign-in failed:", error);
       Alert.alert("Error", "Sign-in failed. Please try again.");
@@ -36,46 +41,45 @@ const SignIn = () => {
   return (
     <ScrollView className="flex-1 bg-white">
       <View className="flex-1 bg-white">
+        {/* Heading */}
         <View className="relative w-full h-[250px]">
-          <Image source={images.signUpCar} className="z-0 w-full h-[250px]" />
           <Text className="text-2xl text-black font-JakartaSemiBold absolute bottom-5 left-5">
             Welcome 👋
           </Text>
         </View>
 
+        {/* Form */}
         <View className="p-5">
           {/* Email Input */}
           <InputField
             label="Email"
             placeholder="Enter email"
-            icon={icons.email}
-            textContentType="emailAddress"
+            icon={<icons.email />}
             control={control}
             name="email"
-            error={errors.email}
+            error={errors.email?.message} // Pass error from formState
           />
 
           {/* Password Input */}
           <InputField
             label="Password"
             placeholder="Enter password"
-            icon={icons.lock}
+            icon={<icons.lock />}
             secureTextEntry={true}
-            textContentType="password"
             control={control}
             name="password"
-            error={errors.password}
+            error={errors.password?.message} // Pass error from formState
           />
 
           {/* Sign In Button */}
           <CustomButton
             title="Sign In"
-            onPress={handleSubmit(onSignInPress)} // Submit the form
-            className="mt-6"
+            onPress={handleSubmit(onSignInPress)} // Ensure handleSubmit is connected to button press
             disabled={isSubmitting}
           />
 
-          <Link href="/(auth)/sign-in" className="text-lg text-center text-general-200 mt-10 text-orange-500">
+          {/* Link to Sign Up */}
+          <Link href="/(auth)/sign-up" className="text-lg text-center text-orange-500 mt-10">
             Don't have an account?{" "}
             <Text className="text-primary-500">Sign Up</Text>
           </Link>
