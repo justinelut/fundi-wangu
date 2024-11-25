@@ -1,92 +1,89 @@
-import React, { useState } from "react";
-import { ScrollView, Text, View, Alert } from "react-native";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth } from "@/lib/appwriteprovider"; // Adjust path if necessary
-import InputField from "@/components/InputField"; // Ensure correct path
-import CustomButton from "@/components/CustomButton";
-import { signInSchema, SignInForm } from "@/lib/validation"; // Adjust path for your schema
-import { Link, router } from "expo-router";
-import { icons, images } from "@/constants";
+import React from 'react';
+import { ScrollView, View, Text, Alert } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { Link, router } from 'expo-router';
+import { Mail, Lock } from 'lucide-react-native';
+import { signInSchema, SignInForm } from '@/lib/validation';
+import { useAuth } from '@/lib/appwriteprovider';
+import { Input } from '@/components/ui/input';
 
-const SignIn = () => {
+const Login = () => {
   const { signIn } = useAuth();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<SignInForm>({
     resolver: zodResolver(signInSchema),
-    defaultValues: {
-      email: "",
-      password: "",
+  });
+
+  const mutation = useMutation({
+    mutationFn: async (data: SignInForm) => {
+      await signIn(data.email, data.password);
+    },
+    onSuccess: () => {
+      Alert.alert('Success', 'You have successfully logged in!');
+      router.replace('/');
+    },
+    onError: (error: Error) => {
+      Alert.alert('Error', error.message || 'Login failed. Please try again.');
     },
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const onSignInPress = async (data: SignInForm) => {
-    setIsSubmitting(true);
-    try {
-      await signIn(data.email, data.password);
-      router.replace("/"); // Redirect to homepage
-    } catch (error) {
-      console.error("Sign-in failed:", error);
-      Alert.alert("Error", "Sign-in failed. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
+  const onLoginPress = (data: SignInForm) => {
+    mutation.mutate(data);
   };
 
   return (
-    <ScrollView className="flex-1 bg-white">
-      <View className="flex-1 bg-white">
-        {/* Heading */}
-        <View className="relative w-full h-[250px]">
-          <Text className="text-2xl text-black font-JakartaSemiBold absolute bottom-5 left-5">
-            Welcome 👋
-          </Text>
-        </View>
+    <ScrollView className="flex-1 bg-background">
+      <View className="p-5">
+        <Text className="mb-4 text-xl font-bold text-center text-foreground">
+          Log In
+        </Text>
 
-        {/* Form */}
-        <View className="p-5">
-          {/* Email Input */}
-          <InputField
-            label="Email"
-            placeholder="Enter email"
-            icon={<icons.email />}
-            control={control}
+        <View className="space-y-4">
+          <Controller
             name="email"
-            error={errors.email?.message} // Pass error from formState
-          />
-
-          {/* Password Input */}
-          <InputField
-            label="Password"
-            placeholder="Enter password"
-            icon={<icons.lock />}
-            secureTextEntry={true}
             control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                placeholder="Enter your email"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                leftIcon={<Mail size={20} color="#9CA3AF" />}
+                error={errors.email?.message}
+              />
+            )}
+          />
+
+          <Controller
             name="password"
-            error={errors.password?.message} // Pass error from formState
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                placeholder="Enter your password"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                secureTextEntry
+                autoCapitalize="none"
+                leftIcon={<Lock size={20} color="#9CA3AF" />}
+                error={errors.password?.message}
+              />
+            )}
           />
-
-          {/* Sign In Button */}
-          <CustomButton
-            title="Sign In"
-            onPress={handleSubmit(onSignInPress)} // Ensure handleSubmit is connected to button press
-            disabled={isSubmitting}
-          />
-
-          {/* Link to Sign Up */}
-          <Link href="/(auth)/sign-up" className="text-lg text-center text-orange-500 mt-10">
-            Don't have an account?{" "}
-            <Text className="text-primary-500">Sign Up</Text>
-          </Link>
         </View>
+
+        {/* We'll create a Button component next */}
       </View>
     </ScrollView>
   );
 };
 
-export default SignIn;
+export default Login;
