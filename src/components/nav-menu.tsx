@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Home, Search, Heart, User, PlusCircle, MessageCircle } from 'lucide-react-native'; // Add new icon for Messages
+import { Home, Grid, Calendar, User, MessageCircle, NotepadText, LayoutGrid } from 'lucide-react-native';
 import { usePathname, useRouter } from 'expo-router';
 import Animated, { useSharedValue, withSpring, useAnimatedStyle } from 'react-native-reanimated';
 import { cn } from '@/lib/cn';
@@ -9,9 +9,9 @@ import * as NavigationBar from 'expo-navigation-bar';
 
 const ROUTES = [
   { name: 'Home', icon: Home, path: '/home' },
-  { name: 'Search', icon: Search, path: '/search' },
-  { name: 'Add', icon: PlusCircle, path: '/add-listing' },
-  { name: 'Messages', icon: MessageCircle, path: '/messages' },  // Replaced "Favorites" with "Messages"
+  { name: 'Categories', icon: LayoutGrid, path: '/categories' },
+  { name: 'Bookings', icon: NotepadText, path: '/bookings' },
+  { name: 'Messages', icon: MessageCircle, path: '/messages' },
   { name: 'Profile', icon: User, path: '/profile' },
 ];
 
@@ -42,31 +42,26 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({ children }) 
     router.push(path);
   };
 
-  // Update navigation bar visibility and style based on the current route
-  const setNavigationBarStyle = () => {
+  React.useEffect(() => {
     if (pathname === '/home') {
       NavigationBar.setBackgroundColorAsync('#ffffff');
       NavigationBar.setButtonStyleAsync('dark');
-    } else if (pathname === '/add-listing') {
+    } else if (pathname === '/bookings') {
       NavigationBar.setBackgroundColorAsync('#f97316');
       NavigationBar.setButtonStyleAsync('light');
     } else {
       NavigationBar.setBackgroundColorAsync('#ffffff');
       NavigationBar.setButtonStyleAsync('dark');
     }
-  };
-
-  // Call the function to update navigation bar when the screen changes
-  React.useEffect(() => {
-    setNavigationBarStyle();
   }, [pathname]);
 
   return (
-    <View className="flex-1">
-      {/* Main Content */}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={{ flex: 1 }}
+    >
       <View className="flex-1">{children}</View>
 
-      {/* Bottom Navigation */}
       <SafeAreaView
         edges={['bottom']}
         style={{
@@ -84,44 +79,34 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({ children }) 
           {ROUTES.map((route) => {
             const Icon = route.icon;
             const isActive = pathname === route.path;
-            const isAddButton = route.name === 'Add';
 
             return (
               <Pressable
                 key={route.name}
                 onPress={() => navigateTo(route.path)}
-                onPressIn={isAddButton ? handlePressIn : undefined}
-                onPressOut={isAddButton ? handlePressOut : undefined}
+                onPressIn={handlePressIn}
+                onPressOut={handlePressOut}
                 className="items-center justify-center"
               >
-                {isAddButton ? (
-                  <Animated.View
-                    className="w-16 h-16 bg-blue-500 rounded-full items-center justify-center shadow-lg"
-                    style={[animatedStyle, { marginTop: -20 }]}
+                <View className="items-center">
+                  <Icon
+                    size={24}
+                    color={isActive ? '#f97316' : '#9ca3af'}
+                  />
+                  <Text
+                    className={cn(
+                      'text-xs mt-1',
+                      isActive ? 'text-orange-500 font-medium' : 'text-gray-500'
+                    )}
                   >
-                    <Icon size={28} color="white" />
-                  </Animated.View>
-                ) : (
-                  <View className="items-center">
-                    <Icon
-                      size={24}
-                      color={isActive ? '#f97316' : '#9ca3af'} // Replace with hardcoded colors
-                    />
-                    <Text
-                      className={cn(
-                        'text-xs mt-1',
-                        isActive ? 'text-orange-500 font-medium' : 'text-gray-500'
-                      )}
-                    >
-                      {route.name}
-                    </Text>
-                  </View>
-                )}
+                    {route.name}
+                  </Text>
+                </View>
               </Pressable>
             );
           })}
         </View>
       </SafeAreaView>
-    </View>
+    </KeyboardAvoidingView>
   );
 };

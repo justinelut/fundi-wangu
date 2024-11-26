@@ -8,6 +8,7 @@ const Layout = () => {
       <BottomNavigation>
         <Stack>
           <Stack.Screen name="home" options={{ headerShown: false }} />
+          <Stack.Screen name="bookings" options={{ headerShown: false }} />
         </Stack>
       </BottomNavigation>
     </ScreenWrapper>
