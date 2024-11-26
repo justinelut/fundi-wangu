@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import QueryProvider from '@/lib/query-client-provider';
+import { ThemeProvider } from '@/lib/theme-provider';
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
@@ -29,6 +30,7 @@ export default function Layout() {
   }
   return (
     <QueryProvider>
+      <ThemeProvider>
       <AuthProvider>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -37,6 +39,7 @@ export default function Layout() {
           <Stack.Screen name="+not-found" />
         </Stack>
       </AuthProvider>
+      </ThemeProvider>
     </QueryProvider>
   );
 }

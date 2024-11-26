@@ -1,6 +1,6 @@
 import { cn } from '@/lib/cn';
 import React, { forwardRef } from 'react';
-import { TextInput, View, Text, Pressable } from 'react-native';
+import { TextInput, View, Text } from 'react-native';
 
 export interface InputProps extends React.ComponentProps<typeof TextInput> {
   leftIcon?: React.ReactNode;
@@ -21,17 +21,17 @@ export const Input = forwardRef<TextInput, InputProps>(
 
         <View className="flex-row items-center rounded-md border p-2">
           {leftIcon && (
-            <View className={cn('mr-2', iconColor)}>{leftIcon}</View> // Applying dynamic icon color
+            <View className={cn(`mr-2 ${error && 'text-red-500'}`, iconColor)}>{leftIcon}</View> // Applying dynamic icon color
           )}
 
           <TextInput
             ref={ref}
             {...props}
-            className={cn('flex-1 text-base', className)} // Dynamically applying Tailwind classes
+            className={cn(`flex-1 text-base ${error && 'border-red-500'}`, className)} // Dynamically applying Tailwind classes
           />
 
           {rightIcon && (
-            <View className={cn('ml-2', iconColor)}>{rightIcon}</View> // Applying dynamic icon color
+            <View className={cn(`ml-2 ${error && 'text-red-500'}`, iconColor)}>{rightIcon}</View> // Applying dynamic icon color
           )}
         </View>
 
