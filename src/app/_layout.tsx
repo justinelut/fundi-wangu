@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import QueryProvider from '@/lib/query-client-provider';
 import { ThemeProvider } from '@/lib/theme-provider';
+import { ScreenWrapper } from '@/components/screen-wrapper';
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
@@ -29,17 +30,19 @@ export default function Layout() {
     return null;
   }
   return (
-    <QueryProvider>
-      <ThemeProvider>
-      <AuthProvider>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          {/* <Stack.Screen name="(root)" options={{ headerShown: false }} />  */}
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </AuthProvider>
-      </ThemeProvider>
-    </QueryProvider>
+   
+      <QueryProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <Stack>
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              <Stack.Screen name="(main)" options={{ headerShown: false }} />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </AuthProvider>
+        </ThemeProvider>
+      </QueryProvider>
+    
   );
 }
