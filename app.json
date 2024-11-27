@@ -8,6 +8,7 @@
     "scheme": "myapp",
     "newArchEnabled": true,
     "userInterfaceStyle": "automatic",
+
     "splash": {
       "image": "./src/assets/images/fundisplash.png",
       "resizeMode": "contain",
@@ -22,7 +23,8 @@
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.justine_dev.fundiwangu"
+      "package": "com.justine_dev.fundiwangu",
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "bundler": "metro",

@@ -89,10 +89,12 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({ children }) 
                 className="items-center justify-center"
               >
                 <View className="items-center">
+                  <View className={` ${isActive && 'bg-primary-200 rounded-full px-4 py-1'}`}>
                   <Icon
                     size={24}
                     color={isActive ? '#f97316' : '#9ca3af'}
                   />
+                  </View>
                   <Text
                     className={cn(
                       'text-xs mt-1',
