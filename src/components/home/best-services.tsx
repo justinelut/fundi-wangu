@@ -6,8 +6,8 @@ import { services } from './home-screen-data';
 import { Link } from 'expo-router';
 
 const ServiceItem = ({ item }) => (
-  <View className="mb-4 max-h-[300px] min-h-[300px] w-full">
-    <Image source={{uri: item.image}} className="w-full h-40 rounded-lg mb-2" />
+  <View className="mb-4 max-h-[300px] min-h-[300px] flex-1 px-1">
+    <Image source={{ uri: item.image }} className="w-full h-40 rounded-lg mb-2" />
     <View className="flex-row items-center mb-1">
       {[...Array(5)].map((_, index) => (
         <Star
@@ -19,50 +19,46 @@ const ServiceItem = ({ item }) => (
       ))}
       <Text className="ml-1 text-sm text-gray-500">({item.reviews} Reviews)</Text>
     </View>
-    <Text className="text-lg font-semibold mb-1" numberOfLines={1}>{item.title}</Text>
+    <Text className="text-lg font-semibold mb-1" numberOfLines={1}>
+      {item.title}
+    </Text>
     <View className="flex-row items-center mb-2">
       <Text className="text-lg font-bold text-blue-500">${item.price}</Text>
-      <Text className="ml-2 text-sm text-gray-500 line-through">${item.originalPrice}</Text>
+      <Text className="ml-2 text-sm text-gray-500 line-through">
+        ${item.originalPrice}
+      </Text>
     </View>
     <View className="flex-row justify-between items-center">
       <View className="flex-row items-center">
         <Image source={item.provider.image} className="w-8 h-8 rounded-full mr-2" />
         <Text className="text-sm">{item.provider.name}</Text>
       </View>
-      <Link href={`/${item.id}`} className="bg-primary-600 px-4 py-2 rounded-lg w-full">
+      <Link href={`/${item.id}`} className="bg-primary-600 px-4 py-2 rounded-lg">
         <Text className="text-white font-semibold">Book</Text>
       </Link>
     </View>
-    
   </View>
 );
 
 const BestServices = () => {
   return (
-    <View>
+    <View className='px-1'>
       <View className="flex-row justify-between items-center mb-2">
-        <Text className="text-lg font-bold">Best Services</Text>
+        <Text className="text-lg font-bold px-1">Best Services</Text>
         <TouchableOpacity>
-          <Text className="text-green-600">See All</Text>
+          <Text className="text-green-600 px-1">See All</Text>
         </TouchableOpacity>
       </View>
-      <View className='h-[400px] flex flex-col gap-x-4'>
       <FlashList
         data={services}
         renderItem={({ item }) => <ServiceItem item={item} />}
         estimatedItemSize={300}
+        numColumns={2} // Two items per row
         showsVerticalScrollIndicator={false}
-        numColumns={2}
-        
-        className='flex gap-x-4 space-x-4'
-        contentContainerStyle={{
-         paddingHorizontal: 2
-        }}
+       
       />
-      </View>
     </View>
   );
 };
 
 export default BestServices;
-
