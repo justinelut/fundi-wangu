@@ -30,7 +30,7 @@ const ServiceItem = ({ item }) => (
     </View>
     <View className="flex-row justify-between items-center">
       <View className="flex-row items-center">
-        <Image source={item.provider.image} className="w-8 h-8 rounded-full mr-2" />
+        <Image source={{uri: item.provider.image}} className="w-8 h-8 rounded-full mr-2" />
         <Text className="text-sm">{item.provider.name}</Text>
       </View>
       <Link href={`/${item.id}`} className="bg-primary-600 px-4 py-2 rounded-lg">

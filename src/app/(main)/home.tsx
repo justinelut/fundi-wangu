@@ -14,6 +14,7 @@ import BookingSlot from '@/components/booking/booking-slot';
 import { useEffect, useRef } from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import FeaturedServices from '@/components/home/featured-services';
 
 export default function Details() {
   const { user } = useAuth();
@@ -41,6 +42,7 @@ export default function Details() {
       
         <SearchBar />
         <Categories />
+        <FeaturedServices />
         <BestServices />
        
      
