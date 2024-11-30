@@ -34,23 +34,17 @@ export default function Details() {
   }, []);
 
   return (
-    <ScrollView className='h-full'>
-   
-    
-     
-        <Header />
-      
-        <SearchBar />
-        <Categories />
-        <FeaturedServices />
-        <BestServices />
-       
-     
+    <ScrollView className="h-full">
+      <Header />
+
+      <SearchBar />
+      <Categories />
+      <FeaturedServices />
+      <BestServices />
 
       <ReusableBottomSheet>
         <BookingSlot /> {/* Pass any content here */}
       </ReusableBottomSheet>
-   
     </ScrollView>
   );
 }

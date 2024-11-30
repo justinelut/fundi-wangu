@@ -1,29 +1,34 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { MapPin, ShoppingCart, ChevronDown } from 'lucide-react-native';
+import { Bell } from 'lucide-react-native';
+import { useRouter } from 'expo-router';
 
 const Header = () => {
+  const router = useRouter();
+
+  const handleNotificationClick = () => {
+    router.push('/notifications/notifications'); // Navigate to the notifications screen
+  };
+
   return (
-    <View className="flex-row justify-between items-center mb-4">
+    <View className="flex-row justify-between items-center px-4 py-6 bg-white shadow-md">
+      {/* Left Section - Logo */}
       <View className="flex-row items-center">
-        <MapPin size={24} color="#007AFF" />
-        <View className="ml-2">
-          <Text className="text-sm text-gray-500">Delivery Address</Text>
-          <View className="flex-row items-center">
-            <Text className="text-base font-semibold">2118 Thornridge California</Text>
-            <ChevronDown size={16} color="#000" />
-          </View>
-        </View>
+        {/* <Image
+          source={require('@/assets/icon.png')} // Replace with your logo
+          className="w-8 h-8 mr-2"
+        /> */}
+        <Text className="text-xl font-bold text-black">AppName</Text>
       </View>
-      <TouchableOpacity className="relative">
-        <ShoppingCart size={24} color="#000" />
-        <View className="absolute -top-2 -right-2 bg-red-500 rounded-full w-5 h-5 items-center justify-center">
-          <Text className="text-white text-xs">1</Text>
-        </View>
-      </TouchableOpacity>
+
+      {/* Right Section - Notification Icons */}
+      <View className="flex-row items-center">
+        <TouchableOpacity onPress={handleNotificationClick}>
+          <Bell size={24} color="#000" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 export default Header;
-
