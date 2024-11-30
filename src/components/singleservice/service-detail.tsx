@@ -14,12 +14,12 @@ const ServiceDetail = () => {
         <Text className="text-xl font-semibold">Service Details</Text>
       </View>
 
-      <ScrollView className="flex-1">
+      <ScrollView className='py-20'>
         {/* Hero Image */}
         <Image 
           source={{uri: 'https://images.pexels.com/photos/634005/pexels-photo-634005.jpeg?auto=compress&cs=tinysrgb&w=100'}} 
-          className="w-full h-64"
-          resizeMode="cover"
+          className="w-full h-400"
+          
         />
 
         {/* Rating and Title */}

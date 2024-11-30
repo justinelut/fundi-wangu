@@ -1,35 +1,44 @@
-import React, { useRef } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import BottomSheet from '@gorhom/bottom-sheet';
+import React, { useCallback, useMemo, useRef } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 
-type ReusableBottomSheetProps = {
-  title?: string;
-  children: React.ReactNode;
+const App = ({children}:{children:React.ReactNode}) => {
+  // ref
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = ['25%', '50%', '90%']; // Adjust as needed
+
+  // callbacks
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
+  }, []);
+
+  // renders
+  return (
+    <GestureHandlerRootView className='h-full bg-black'>
+      <BottomSheet
+        ref={bottomSheetRef}
+        onChange={handleSheetChanges}
+        snapPoints={snapPoints}
+      >
+        <BottomSheetView style={styles.contentContainer}>
+         {children}
+        </BottomSheetView>
+      </BottomSheet>
+    </GestureHandlerRootView>
+  );
 };
 
-const ReusableBottomSheet = React.forwardRef<BottomSheet, ReusableBottomSheetProps>(
-  ({ title, children }, ref) => {
-    // Snap points for the bottom sheet (adjust as needed)
-    const snapPoints = ['25%', '50%', '90%'];
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'grey',
+  },
+  contentContainer: {
+    flex: 1,
+    padding: 36,
+    alignItems: 'center',
+  },
+});
 
-    return (
-      <BottomSheet
-        ref={ref}
-        index={-1} // Initial state (hidden)
-        snapPoints={snapPoints}
-        enablePanDownToClose
-        backgroundStyle={{ backgroundColor: '#ffffff' }}
-        handleIndicatorStyle={{ backgroundColor: '#cccccc' }}
-      >
-        <View style={{ padding: 16 }}>
-          {/* Optional Title */}
-          {title && <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 16 }}>{title}</Text>}
-          {/* Content */}
-          {children}
-        </View>
-      </BottomSheet>
-    );
-  }
-);
-
-export default ReusableBottomSheet;
+export default App;

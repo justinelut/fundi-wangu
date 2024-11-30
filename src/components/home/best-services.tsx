@@ -53,6 +53,7 @@ const BestServices = () => {
         estimatedItemSize={300}
         showsVerticalScrollIndicator={false}
         numColumns={2}
+        
         className='flex gap-x-4 space-x-4'
         contentContainerStyle={{
          paddingHorizontal: 2
