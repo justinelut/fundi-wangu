@@ -71,8 +71,9 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({ children }) 
 
       <SafeAreaView
         edges={['bottom']}
+        className='bg-background'
         style={{
-          backgroundColor: 'white',
+         
           borderTopWidth: 1,
           borderTopColor: '#e5e7eb',
           shadowColor: '#000',

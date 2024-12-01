@@ -21,7 +21,7 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
       style={[
         {
           flex: 1, // Ensures the container takes up the full screen
-          backgroundColor: 'hsl(0, 0%, 100%)', // Light background by default
+          // backgroundColor: 'hsl(0, 0%, 100%)', // Light background by default
         },
         style,
       ]}
@@ -30,10 +30,8 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
     >
       <SafeAreaView 
         edges={edges} 
-        className={cn('flex-1')}
-        style={{
-          backgroundColor: fullBackground ? 'hsl(0, 0%, 100%)' : undefined, // Ensure full screen background color
-        }}
+        className={cn('flex-1 bg-background')}
+      
       >
         {children}
       </SafeAreaView>
