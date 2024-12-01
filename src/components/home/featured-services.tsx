@@ -56,7 +56,7 @@ const FeaturedServices = () => {
         horizontal
         
         showsVerticalScrollIndicator={false}
-       
+        showsHorizontalScrollIndicator={false}
       />
     </View>
   );

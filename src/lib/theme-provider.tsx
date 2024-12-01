@@ -1,63 +1,31 @@
-import React, { 
-  createContext, 
-  useContext, 
-  useState, 
-  useEffect, 
-  ReactNode 
-} from 'react';
-import { useColorScheme, Platform } from 'react-native';
-import * as NavigationBar from 'expo-navigation-bar';
+import React, { createContext } from 'react';
+import { View } from 'react-native';
+import { useColorScheme } from 'nativewind';
+import { themes } from './color-theme';
 
-type ThemeContextType = {
-  isDarkMode: boolean;
-  toggleTheme: () => void;
-};
+interface ThemeProviderProps {
+  children: React.ReactNode;
+}
 
-const ThemeContext = createContext<ThemeContextType>({
-  isDarkMode: false,
-  toggleTheme: () => {},
+type Theme = 'light' | 'dark';
+
+export const ThemeContext = createContext<{
+  theme: Theme;
+}>({
+  theme: 'light',
 });
 
-export const useTheme = () => useContext(ThemeContext);
+export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+  const { colorScheme } = useColorScheme();
 
-export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const colorScheme = useColorScheme();
-  const [isDarkMode, setIsDarkMode] = useState(colorScheme === 'dark');
-
-  const toggleTheme = () => {
-    setIsDarkMode(prev => !prev);
-  };
-
-  useEffect(() => {
-    // Sync with system color scheme
-    setIsDarkMode(colorScheme === 'dark');
-  }, [colorScheme]);
-
-  useEffect(() => {
-    // Update navigation bar for Android
-    const updateNavigationBar = async () => {
-      if (Platform.OS === 'android') {
-        try {
-          await NavigationBar.setBackgroundColorAsync(
-            isDarkMode 
-              ? 'hsl(20, 14.3%, 4.1%)' // Dark mode background 
-              : 'hsl(0, 0%, 100%)' // Light mode background
-          );
-          await NavigationBar.setButtonStyleAsync(
-            isDarkMode ? 'light' : 'dark'
-          );
-        } catch (error) {
-          console.error('Failed to set navigation bar', error);
-        }
-      }
-    };
-
-    updateNavigationBar();
-  }, [isDarkMode]);
+  // Ensure colorScheme defaults to 'light' if null
+  const theme: Theme = colorScheme === 'light' || colorScheme === 'dark' ? colorScheme : 'light';
 
   return (
-    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
-      {children}
+    <ThemeContext.Provider value={{ theme }}>
+      <View style={themes[theme]} className="flex-1">
+        {children}
+      </View>
     </ThemeContext.Provider>
   );
 };

@@ -15,6 +15,7 @@ import { useEffect, useRef } from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import FeaturedServices from '@/components/home/featured-services';
+import ThemeSwitcher from '@/lib/theme-switcher';
 
 export default function Details() {
   const { user } = useAuth();
@@ -34,10 +35,11 @@ export default function Details() {
   }, []);
 
   return (
-    <ScrollView className="h-full">
+    <ScrollView className="h-full" showsVerticalScrollIndicator={false}>
       <Header />
 
       <SearchBar />
+      {/* <ThemeSwitcher /> */}
       <Categories />
       <FeaturedServices />
       <BestServices />

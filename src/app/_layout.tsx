@@ -5,8 +5,9 @@ import { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import QueryProvider from '@/lib/query-client-provider';
-import { ThemeProvider } from '@/lib/theme-provider';
 import { ScreenWrapper } from '@/components/screen-wrapper';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ThemeProvider } from '@/lib/theme-provider';
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
@@ -30,7 +31,7 @@ export default function Layout() {
     return null;
   }
   return (
-   
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryProvider>
         <ThemeProvider>
           <AuthProvider>
@@ -44,6 +45,6 @@ export default function Layout() {
           </AuthProvider>
         </ThemeProvider>
       </QueryProvider>
-    
+      </GestureHandlerRootView>
   );
 }

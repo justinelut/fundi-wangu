@@ -14,11 +14,11 @@ const ServiceDetail = () => {
         <Text className="text-xl font-semibold">Service Details</Text>
       </View>
 
-      <ScrollView className='py-20'>
+      <ScrollView className='py-20 h-full'>
         {/* Hero Image */}
         <Image 
           source={{uri: 'https://images.pexels.com/photos/634005/pexels-photo-634005.jpeg?auto=compress&cs=tinysrgb&w=100'}} 
-          className="w-full h-400"
+          className="w-full h-[400px] aspect-square object-cover"
           
         />
 
