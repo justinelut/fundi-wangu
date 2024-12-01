@@ -18,20 +18,19 @@ const SearchBar = () => {
   };
 
   return (
-    <View className="flex-row items-center mb-4">
+    <View className="mb-4 flex-row items-center dark:text-foreground">
       <Animated.View
         style={[animatedStyle]}
-        className="flex-row items-center bg-gray-100 rounded-lg p-2 mr-2"
-      >
+        className="mr-2 flex-row items-center rounded-lg  p-2">
         <Search size={20} color="#9CA3AF" />
         <TextInput
-          className="flex-1 ml-2 text-base"
+          className="ml-2 flex-1 text-base"
           placeholder="Search"
           placeholderTextColor="#9CA3AF"
           onFocus={handleFocus}
         />
       </Animated.View>
-      <TouchableOpacity className="bg-blue-500 p-3 rounded-lg">
+      <TouchableOpacity className="rounded-lg bg-primary p-3">
         <Sliders size={20} color="#FFF" />
       </TouchableOpacity>
     </View>

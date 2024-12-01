@@ -1,31 +1,53 @@
-import React, { createContext } from 'react';
-import { View } from 'react-native';
-import { useColorScheme } from 'nativewind';
-import { themes } from './color-theme';
+import React, { useEffect, useState, ReactNode, createContext, useContext } from "react";
+import { colorScheme } from "nativewind";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-interface ThemeProviderProps {
-  children: React.ReactNode;
+type Theme = "light" | "dark" | "system";
+
+interface ThemeContextProps {
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
 }
 
-type Theme = 'light' | 'dark';
+const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
-export const ThemeContext = createContext<{
-  theme: Theme;
-}>({
-  theme: 'light',
-});
+interface ThemeProviderProps {
+  children: ReactNode;
+}
 
-export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const { colorScheme } = useColorScheme();
+const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+  const [theme, setThemeState] = useState<Theme>("system");
 
-  // Ensure colorScheme defaults to 'light' if null
-  const theme: Theme = colorScheme === 'light' || colorScheme === 'dark' ? colorScheme : 'light';
+  useEffect(() => {
+    const loadTheme = async () => {
+      const savedTheme = (await AsyncStorage.getItem("theme")) as Theme | null;
+      if (savedTheme) {
+        colorScheme.set(savedTheme);
+        setThemeState(savedTheme);
+      }
+    };
+    loadTheme();
+  }, []);
+
+  const setTheme = async (newTheme: Theme) => {
+    await AsyncStorage.setItem("theme", newTheme);
+    colorScheme.set(newTheme);
+    setThemeState(newTheme);
+  };
 
   return (
-    <ThemeContext.Provider value={{ theme }}>
-      <View style={themes[theme]} className="flex-1">
-        {children}
-      </View>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
     </ThemeContext.Provider>
   );
 };
+
+export const useTheme = (): ThemeContextProps => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useTheme must be used within a ThemeProvider");
+  }
+  return context;
+};
+
+export default ThemeProvider;

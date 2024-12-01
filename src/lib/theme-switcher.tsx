@@ -1,89 +1,48 @@
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import React, { useEffect } from "react";
+import { View, Text } from "react-native";
+import { Sun, Moon } from "lucide-react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-  interpolate,
-  Extrapolate,
-} from 'react-native-reanimated';
-import { Sun, Moon } from 'lucide-react-native';
-import { useTheme } from './theme-provider';
+} from "react-native-reanimated";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useTheme } from "./theme-provider";
 
 const ThemeSwitcher: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const isDarkMode = theme === "dark";
 
-  // Animated value for the toggle progress
-  const progress = useSharedValue(isDarkMode ? 1 : 0);
+  const switchPosition = useSharedValue(isDarkMode ? 1 : 0);
 
-  const toggleTheme = () => {
+  useEffect(() => {
+    switchPosition.value = isDarkMode ? 1 : 0;
+  }, [isDarkMode]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: withTiming(switchPosition.value * 32, { duration: 300 }) }],
+  }));
+
+  const handleToggle = () => {
     const newTheme = isDarkMode ? "light" : "dark";
     setTheme(newTheme);
-    progress.value = withTiming(newTheme === "dark" ? 1 : 0, { duration: 300 });
   };
 
-  // Animated styles for the icon and background
-  const animatedContainerStyle = useAnimatedStyle(() => {
-    const backgroundColor = interpolate(
-      progress.value,
-      [0, 1],
-      ['#FFFFFF', '#000000'],
-      Extrapolate.CLAMP
-    );
-
-    return {
-      backgroundColor, // This controls the background color based on theme
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: 100,
-      height: 50,
-      borderRadius: 25,
-      padding: 10,
-    };
-  });
-
-  const animatedIconStyle = useAnimatedStyle(() => {
-    const translateX = interpolate(
-      progress.value,
-      [0, 1],
-      [0, 40],
-      Extrapolate.CLAMP
-    );
-
-    return {
-      transform: [{ translateX }],
-      position: 'absolute',
-      flexDirection: 'row',
-    };
-  });
-
-  const sunOpacity = interpolate(
-    progress.value,
-    [0, 0.5, 1],
-    [1, 0, 0],
-    Extrapolate.CLAMP
-  );
-
-  const moonOpacity = interpolate(
-    progress.value,
-    [0, 0.5, 1],
-    [0, 0, 1],
-    Extrapolate.CLAMP
-  );
-
   return (
-    <TouchableOpacity onPress={toggleTheme}>
-      <Animated.View style={animatedContainerStyle}>
-        <Animated.View style={[animatedIconStyle, { opacity: sunOpacity }]}>
-          <Sun size={24} color={isDarkMode ? "gray" : "orange"} />
-        </Animated.View>
-        <Animated.View style={[animatedIconStyle, { opacity: moonOpacity }]}>
-          <Moon size={24} color={isDarkMode ? "white" : "gray"} />
-        </Animated.View>
-      </Animated.View>
-    </TouchableOpacity>
+    <View className="flex-row items-center justify-between w-40 p-2 bg-card rounded-full">
+      <Sun size={24} color={isDarkMode ? "gray" : "orange"} />
+      <TouchableOpacity
+        onPress={handleToggle}
+        activeOpacity={0.8}
+        className="relative w-20 h-8 bg-muted rounded-full"
+      >
+        <Animated.View
+          style={animatedStyle}
+          className="absolute w-8 h-8 bg-primary rounded-full"
+        />
+      </TouchableOpacity>
+      <Moon size={24} color={isDarkMode ? "white" : "gray"} />
+    </View>
   );
 };
 

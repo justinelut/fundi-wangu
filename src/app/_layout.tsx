@@ -7,7 +7,7 @@ import { useFonts } from 'expo-font';
 import QueryProvider from '@/lib/query-client-provider';
 import { ScreenWrapper } from '@/components/screen-wrapper';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { ThemeProvider } from '@/lib/theme-provider';
+import ThemeProvider from '@/lib/theme-provider';
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {

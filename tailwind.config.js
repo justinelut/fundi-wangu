@@ -2,12 +2,12 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class', // Enable dark mode by class
+  darkMode: ["class"],
   content: [
-    './src/**/*.{js,jsx,ts,tsx}', // Ensure your content paths are correct
+    './src/**/*.{js,jsx,ts,tsx}',
     './components/**/*.{js,jsx,ts,tsx}',
   ],
-  presets: [require('nativewind/preset')], // NativeWind preset for React Native
+  presets: [require('nativewind/preset')],
   theme: {
     container: {
       center: true,
@@ -18,28 +18,65 @@ module.exports = {
     },
     extend: {
       colors: {
-        // Add the minimal required colors for dark mode and light mode
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
-        card: 'var(--card)',
-        'card-foreground': 'var(--card-foreground)',
-        popover: 'var(--popover)',
-        'popover-foreground': 'var(--popover-foreground)',
-        primary: 'var(--primary)',
-        'primary-foreground': 'var(--primary-foreground)',
-        secondary: 'var(--secondary)',
-        'secondary-foreground': 'var(--secondary-foreground)',
-        muted: 'var(--muted)',
-        'muted-foreground': 'var(--muted-foreground)',
-        accent: 'var(--accent)',
-        'accent-foreground': 'var(--accent-foreground)',
-        destructive: 'var(--destructive)',
-        'destructive-foreground': 'var(--destructive-foreground)',
-        border: 'var(--border)',
-        input: 'var(--input)',
-        ring: 'var(--ring)',
-        success: 'var(--success)',
-        'success-foreground': 'var(--success-foreground)',
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        scroll: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
     },
   },

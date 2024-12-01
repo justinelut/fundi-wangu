@@ -39,7 +39,7 @@ export default function Details() {
       <Header />
 
       <SearchBar />
-      {/* <ThemeSwitcher /> */}
+      <ThemeSwitcher />
       <Categories />
       <FeaturedServices />
       <BestServices />

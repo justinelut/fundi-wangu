@@ -20,7 +20,7 @@ const ROUTES = [
   { name: 'Categories', icon: LayoutGrid, path: '/categories' },
   { name: 'Bookings', icon: NotepadText, path: '/bookings' },
   { name: 'Messages', icon: MessageCircle, path: '/messages' },
-  { name: 'Profile', icon: User, path: '/profile' },
+  { name: 'Account', icon: User, path: '/account' },
 ];
 
 interface BottomNavigationProps {
