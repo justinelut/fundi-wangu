@@ -1,48 +1,121 @@
-import React, { useEffect } from "react";
-import { View, Text } from "react-native";
-import { Sun, Moon } from "lucide-react-native";
+import React from 'react';
+import { View, TouchableOpacity } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-} from "react-native-reanimated";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useTheme } from "./theme-provider";
+  interpolate,
+  Extrapolate,
+} from 'react-native-reanimated';
+import { Sun, Moon } from 'lucide-react-native';
+import { useColorScheme } from 'nativewind';
 
 const ThemeSwitcher: React.FC = () => {
-  const { theme, setTheme } = useTheme();
-  const isDarkMode = theme === "dark";
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const isDarkMode = colorScheme === "dark";
 
-  const switchPosition = useSharedValue(isDarkMode ? 1 : 0);
+  // Animated value for the toggle progress
+  const progress = useSharedValue(isDarkMode ? 1 : 0);
 
-  useEffect(() => {
-    switchPosition.value = isDarkMode ? 1 : 0;
-  }, [isDarkMode]);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: withTiming(switchPosition.value * 32, { duration: 300 }) }],
-  }));
-
-  const handleToggle = () => {
-    const newTheme = isDarkMode ? "light" : "dark";
-    setTheme(newTheme);
+  const toggleTheme = () => {
+    toggleColorScheme();
+    progress.value = withTiming(isDarkMode ? 0 : 1, { duration: 300 });
   };
 
+  // Animated styles for the slider
+  const animatedSliderStyle = useAnimatedStyle(() => {
+    const translateX = interpolate(
+      progress.value,
+      [0, 1],
+      [0, 50],
+      Extrapolate.CLAMP
+    );
+
+    // Dynamic background color based on progress
+    const backgroundColor = interpolate(
+      progress.value,
+      [0, 0.5, 1],
+      ['white', 'white', 'black']
+    );
+
+    return {
+      position: 'absolute',
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      transform: [{ translateX }],
+      backgroundColor,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
+      elevation: 2,
+    };
+  });
+
+  // Icon opacity calculations
+  const sunOpacity = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      progress.value,
+      [0, 0.5, 1],
+      [1, 0, 0],
+      Extrapolate.CLAMP
+    );
+
+    return { opacity };
+  });
+
+  const moonOpacity = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      progress.value,
+      [0, 0.5, 1],
+      [0, 0, 1],
+      Extrapolate.CLAMP
+    );
+
+    return { opacity };
+  });
+
   return (
-    <View className="flex-row items-center justify-between w-40 p-2 bg-card rounded-full">
-      <Sun size={24} color={isDarkMode ? "gray" : "orange"} />
-      <TouchableOpacity
-        onPress={handleToggle}
-        activeOpacity={0.8}
-        className="relative w-20 h-8 bg-muted rounded-full"
+    <TouchableOpacity 
+      onPress={toggleTheme} 
+      className="relative bg-secondary dark:bg-secondary-foreground rounded-full w-[100px] h-[50px] flex-row items-center p-1"
+    >
+      {/* Background Slider */}
+      <Animated.View 
+        style={animatedSliderStyle}
+      />
+
+      {/* Sun Icon */}
+      <Animated.View 
+        style={[
+          { position: 'absolute', left: 10 },
+          sunOpacity
+        ]}
+        className="z-10"
       >
-        <Animated.View
-          style={animatedStyle}
-          className="absolute w-8 h-8 bg-primary rounded-full"
+        <Sun 
+          size={24} 
+          color="orange"
+          className="text-primary dark:text-primary-foreground" 
         />
-      </TouchableOpacity>
-      <Moon size={24} color={isDarkMode ? "white" : "gray"} />
-    </View>
+      </Animated.View>
+
+      {/* Moon Icon */}
+      <Animated.View 
+        style={[
+          { position: 'absolute', right: 10 },
+          moonOpacity
+        ]}
+        className="z-10"
+      >
+        <Moon 
+          size={24} 
+          color="gray"
+          className="text-primary-foreground dark:text-primary" 
+        />
+      </Animated.View>
+    </TouchableOpacity>
   );
 };
 

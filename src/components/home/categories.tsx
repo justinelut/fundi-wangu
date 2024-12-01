@@ -19,7 +19,7 @@ const CategoryItem = ({ item }) => {
 
 const Categories = () => {
   return (
-    <View className="mb-6">
+    <View className="mb-6 bg-background">
       <View className="flex-row justify-between items-center mb-4 px-4">
         <Text className="text-lg font-bold">Explore Categories</Text>
         <TouchableOpacity>

@@ -11,20 +11,20 @@ const Header = () => {
   };
 
   return (
-    <View className="flex-row justify-between items-center px-4 py-6 bg-white shadow-md">
+    <View className="flex-row justify-between items-center px-4 py-6 bg-white shadow-md dark:bg-black dark:text-foreground text-white">
       {/* Left Section - Logo */}
       <View className="flex-row items-center">
         {/* <Image
           source={require('@/assets/icon.png')} // Replace with your logo
           className="w-8 h-8 mr-2"
         /> */}
-        <Text className="text-xl font-bold text-black">AppName</Text>
+        <Text className="text-xl font-bold dark:text-white">AppName</Text>
       </View>
 
       {/* Right Section - Notification Icons */}
       <View className="flex-row items-center">
         <TouchableOpacity onPress={handleNotificationClick}>
-          <Bell size={24} color="#000" />
+          <Bell size={24} color="#fff" />
         </TouchableOpacity>
       </View>
     </View>

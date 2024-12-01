@@ -18,10 +18,8 @@ const SearchBar = () => {
   };
 
   return (
-    <View className="mb-4 flex-row items-center dark:text-foreground">
-      <Animated.View
-        style={[animatedStyle]}
-        className="mr-2 flex-row items-center rounded-lg  p-2">
+    <View className="mb-4 flex-row items-center">
+      <Animated.View style={[animatedStyle]} className="mr-2 flex-row items-center rounded-lg  p-2">
         <Search size={20} color="#9CA3AF" />
         <TextInput
           className="ml-2 flex-1 text-base"
@@ -30,7 +28,7 @@ const SearchBar = () => {
           onFocus={handleFocus}
         />
       </Animated.View>
-      <TouchableOpacity className="rounded-lg bg-primary p-3">
+      <TouchableOpacity className="rounded-lg p-3 dark:bg-primary">
         <Sliders size={20} color="#FFF" />
       </TouchableOpacity>
     </View>

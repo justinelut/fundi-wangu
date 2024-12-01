@@ -35,7 +35,7 @@ export default function Details() {
   }, []);
 
   return (
-    <ScrollView className="h-full" showsVerticalScrollIndicator={false}>
+    <ScrollView className="h-full bg-background" showsVerticalScrollIndicator={false}>
       <Header />
 
       <SearchBar />
