@@ -19,15 +19,16 @@ export const Input = forwardRef<TextInput, InputProps>(
       <View className="space-y-2">
         {label && <Text className="text-sm font-semibold">{label}</Text>}
 
-        <View className="flex-row items-center rounded-md border p-2">
+        <View className="flex-row items-center rounded-md border border-foreground p-2">
           {leftIcon && (
             <View className={cn(`mr-2 ${error && 'text-red-500'}`, iconColor)}>{leftIcon}</View> // Applying dynamic icon color
           )}
 
           <TextInput
+           placeholderTextColor={"orange"}
             ref={ref}
             {...props}
-            className={cn(`flex-1 text-base ${error && 'border-red-500'}`, className)} // Dynamically applying Tailwind classes
+            className={cn(`flex-1 text-base text-foreground ${error && 'border-red-500'}`, className)} // Dynamically applying Tailwind classes
           />
 
           {rightIcon && (

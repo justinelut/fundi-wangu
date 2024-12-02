@@ -1,26 +1,25 @@
 import React from 'react';
-import { 
-  ScrollView, 
-  View, 
-  Text, 
-  Alert, 
-  Image, 
-  TouchableOpacity 
+import {
+  ScrollView,
+  View,
+  Text,
+  Alert,
+  Image,
+  TouchableOpacity,
 } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { Link, router } from 'expo-router';
-import { Mail, Lock, ArrowRight } from 'lucide-react-native';
+import { Mail, Lock } from 'lucide-react-native';
 import { signInSchema, SignInForm } from '@/lib/validation';
 import { useAuth } from '@/lib/appwriteprovider';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { OAuthProvider } from 'react-native-appwrite';
 import { icons } from "@/constants";
 
 const Login = () => {
-  const { signIn,  loginWithOAuth} = useAuth();
+  const { signIn, loginWithOAuth } = useAuth();
 
   const {
     control,
@@ -60,23 +59,21 @@ const Login = () => {
   };
 
   return (
-    <ScrollView 
+    <ScrollView
       className="flex-1 bg-background"
       contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
     >
       <View className="p-6">
         <View className="items-center mb-8">
-          <Image 
-            source={icons.search} 
-            className="w-24 h-24 mb-4" 
+          <Image
+            source={icons.Logo}
+            className="w-24 h-24 mb-4"
             resizeMode="contain"
           />
           <Text className="text-2xl font-bold text-foreground">
-            Welcome Back
+            Fundi Wangu
           </Text>
-          <Text className="text-muted-foreground">
-            Sign in to continue
-          </Text>
+          <Text className="text-gray-500">Sign in to continue</Text>
         </View>
 
         <View className="space-y-4 flex flex-col gap-y-4">
@@ -115,44 +112,43 @@ const Login = () => {
           />
 
           <TouchableOpacity className="self-end">
-            <Text className="text-primary text-sm">Forgot Password?</Text>
+            <Text className="text-blue-600 text-sm">Forgot Password?</Text>
           </TouchableOpacity>
 
-          <Button 
+          <TouchableOpacity
+            className="bg-primary rounded-full py-4 items-center mt-4"
             onPress={handleSubmit(onLoginPress)}
-            loading={loginMutation.isPending}
-            className="mt-4"
-            rightIcon={<ArrowRight size={20} color="white" />}
+            disabled={loginMutation.isPending}
           >
-            Sign In
-          </Button>
+            <Text className="text-white text-lg font-semibold">
+              {loginMutation.isPending ? 'Signing In...' : 'Sign In'}
+            </Text>
+          </TouchableOpacity>
 
-          <View className="flex-row items-center my-4">
-            <View className="flex-1 h-[1px] bg-border" />
-            <Text className="mx-4 text-muted-foreground">or</Text>
-            <View className="flex-1 h-[1px] bg-border" />
+          <View className="flex-row items-center my-6">
+            <View className="flex-1 h-[1px] bg-gray-300" />
+            <Text className="mx-4 text-gray-500">or</Text>
+            <View className="flex-1 h-[1px] bg-gray-300" />
           </View>
 
-          <Button 
-            variant="outline"
+          <TouchableOpacity
+            className="bg-white border border-gray-300 rounded-full py-4 flex-row justify-center items-center"
             onPress={() => googleAuthMutation.mutate()}
-            loading={googleAuthMutation.isPending}
-            className='py-6'
+            disabled={googleAuthMutation.isPending}
           >
-            <Image 
-              source={icons.google} 
-              className="w-6 h-6 mr-2" 
-            />
-            Continue with Google
-          </Button>
-
-          <View className="flex-row justify-center mt-4">
-            <Text className="text-muted-foreground">
-              Don't have an account? 
+            <Image source={icons.google} className="w-6 h-6 mr-2" />
+            <Text className="text-gray-700 font-medium">
+              {googleAuthMutation.isPending
+                ? 'Signing In...'
+                : 'Continue with Google'}
             </Text>
+          </TouchableOpacity>
+
+          <View className="flex-row justify-center mt-6">
+            <Text className="text-gray-500">Don't have an account?</Text>
             <Link href="/sign-up" asChild>
               <TouchableOpacity>
-                <Text className="text-primary ml-1 font-bold">Sign Up</Text>
+                <Text className="text-blue-600 ml-1 font-bold">Sign Up</Text>
               </TouchableOpacity>
             </Link>
           </View>
