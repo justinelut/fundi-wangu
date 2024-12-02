@@ -11,7 +11,7 @@ const Header = () => {
   };
 
   return (
-    <View className="flex-row justify-between items-center px-4 py-6 bg-white shadow-md dark:bg-black dark:text-foreground text-white">
+    <View className="flex-row justify-between items-center px-4 py-6  shadow-md ">
       {/* Left Section - Logo */}
       <View className="flex-row items-center">
         {/* <Image
