@@ -39,7 +39,7 @@ export default function Details() {
     <ScrollView className="h-full" showsVerticalScrollIndicator={false}>
       <Header />
       <LogoutScreen />
-      <SearchBar />
+      {/* <SearchBar /> */}
       <ThemeSwitcher />
       <Categories />
       <FeaturedServices />

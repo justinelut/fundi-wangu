@@ -12,7 +12,7 @@ const TabIcon = ({
   focused: boolean;
   label: string;
 }) => (
-  <View className="items-center">
+  <View className="items-center ">
     <View
       className={`items-center justify-center rounded-full px-4 py-2 ${
         focused ? 'bg-orange-100' : 'bg-transparent'

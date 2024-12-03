@@ -1,37 +1,51 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Bell, MessageCircle } from 'lucide-react-native';
+import { Bell, MessageCircle, Search } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 
-const Header = () => {
+const HeaderWithSearchBar = () => {
   const router = useRouter();
 
+  const handleSearchClick = () => {
+    // Navigate directly to the search route
+    router.push('/(search)/search');
+  };
+
   const handleNotificationClick = () => {
-    router.push('/notifications/notifications'); // Navigate to the notifications screen
+    router.push('/notifications/notifications');
   };
 
   return (
-    <View className="flex-row items-center justify-between px-4 py-6  shadow-md ">
-      {/* Left Section - Logo */}
-      <View className="flex-row items-center">
-        {/* <Image
-          source={require('@/assets/icon.png')} // Replace with your logo
-          className="w-8 h-8 mr-2"
-        /> */}
-        <Text className="text-xl font-bold dark:text-white">AppName</Text>
+    <View className="relative">
+      {/* Sticky Header */}
+      <View className="flex-row items-center justify-between px-4 py-6 shadow-md sticky top-0 z-10 bg-white dark:bg-gray-900">
+        {/* Left Section - Logo */}
+        <View className="flex-row items-center">
+          <Text className="text-xl font-bold dark:text-white">AppName</Text>
+        </View>
+
+        {/* Right Section - Notification Icons */}
+        <View className="flex-row items-center gap-x-4 text-foreground">
+          <TouchableOpacity onPress={handleNotificationClick}>
+            <MessageCircle size={24} color="#fff" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleNotificationClick}>
+            <Bell size={24} color="#fff" />
+          </TouchableOpacity>
+
+          {/* Search Icon */}
+          <TouchableOpacity onPress={handleSearchClick}>
+            <Search size={24} color="#fff" />
+          </TouchableOpacity>
+        </View>
       </View>
 
-      {/* Right Section - Notification Icons */}
-      <View className="flex-row items-center gap-x-4 text-foreground">
-        <TouchableOpacity onPress={handleNotificationClick}>
-          <MessageCircle size={24} color={"#fff"} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleNotificationClick}>
-          <Bell size={24} color="#fff" />
-        </TouchableOpacity>
+      {/* Content area that will be scrollable */}
+      <View className="flex-1">
+        {/* Content of the screen can go here */}
       </View>
     </View>
   );
 };
 
-export default Header;
+export default HeaderWithSearchBar;

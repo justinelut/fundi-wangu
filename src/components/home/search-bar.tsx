@@ -18,7 +18,7 @@ const SearchBar = () => {
   };
 
   return (
-    <View className="mb-4 flex-row items-center">
+    <View className="mb-4 flex-row items-center sticky">
       <Animated.View style={[animatedStyle]} className="mr-2 flex-row items-center rounded-lg  p-2">
         <Search size={20} color="#9CA3AF" />
         <TextInput

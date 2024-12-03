@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { FlashList } from '@shopify/flash-list';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import FeaturedServices from '@/components/home/featured-services';
 
 const recommendations = [
   { id: '1', title: 'Plumbing Services' },
@@ -45,10 +46,10 @@ const SearchScreen = () => {
   };
 
   return (
-    <View className="flex-1 bg-white">
-      <View className="flex-row items-center p-4 bg-gray-100">
+    <View className="h-full bg-background text-foreground">
+      <View className="flex-row items-center p-4">
         <TouchableOpacity onPress={handleBack} className="mr-4">
-          <Text>Back</Text>
+          <Text className='text-foreground'>Back</Text>
         </TouchableOpacity>
         <TextInput
           value={query}
@@ -59,12 +60,13 @@ const SearchScreen = () => {
         />
       </View>
 
-      <Animated.View style={[animatedStyle]} className="mt-4">
-        <Text className="font-semibold text-lg mb-2">Recommended Services</Text>
+      <Animated.View style={[animatedStyle]} className="mt-4 text-foreground">
+        <Text className="font-semibold text-lg mb-2 text-foreground px-4">Recommended Services</Text>
         <FlashList
           horizontal
           data={recommendations}
           keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
             <TouchableOpacity
               className="bg-gray-100 rounded-lg p-4 mr-4 shadow-sm"
@@ -78,16 +80,17 @@ const SearchScreen = () => {
         />
       </Animated.View>
 
-      <View className="mt-6">
-        <Text className="font-semibold text-lg mb-2">Search Results</Text>
+      {/* Main ScrollView to allow content to scroll */}
+      <ScrollView className="mt-4 flex-1 px-4">
+        <Text className="font-semibold text-lg mb-2 text-foreground">Search Results</Text>
         {suggestions.length > 0 ? (
           suggestions.map((item) => (
             <TouchableOpacity
               key={item.id}
-              className="p-4 border-b border-gray-200"
+              className="py-4 border-b border-gray-200"
               onPress={() => console.log(item.title)}
             >
-              <Text>{item.title}</Text>
+              <Text className='text-foreground'>{item.title}</Text>
             </TouchableOpacity>
           ))
         ) : (
@@ -95,7 +98,12 @@ const SearchScreen = () => {
             <Text>No results found</Text>
           </View>
         )}
-      </View>
+
+        {/* Featured Services Component */}
+        <View className="mt-6">
+          <FeaturedServices />
+        </View>
+      </ScrollView>
     </View>
   );
 };
