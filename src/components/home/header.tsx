@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Bell } from 'lucide-react-native';
+import { Bell, MessageCircle } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 
 const Header = () => {
@@ -11,7 +11,7 @@ const Header = () => {
   };
 
   return (
-    <View className="flex-row justify-between items-center px-4 py-6  shadow-md ">
+    <View className="flex-row items-center justify-between px-4 py-6  shadow-md ">
       {/* Left Section - Logo */}
       <View className="flex-row items-center">
         {/* <Image
@@ -22,7 +22,10 @@ const Header = () => {
       </View>
 
       {/* Right Section - Notification Icons */}
-      <View className="flex-row items-center">
+      <View className="flex-row items-center gap-x-4 text-foreground">
+        <TouchableOpacity onPress={handleNotificationClick}>
+          <MessageCircle size={24} color={"#fff"} />
+        </TouchableOpacity>
         <TouchableOpacity onPress={handleNotificationClick}>
           <Bell size={24} color="#fff" />
         </TouchableOpacity>
