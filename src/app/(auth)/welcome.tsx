@@ -4,7 +4,6 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
 
-import CustomButton from '@/components/CustomButton';
 import { onboarding } from '@/constants';
 
 const Home = () => {
@@ -31,7 +30,7 @@ const Home = () => {
         onIndexChanged={(index) => setActiveIndex(index)}>
         {onboarding.map((item) => (
           <View key={item.id} className="flex items-center justify-center p-5">
-            <Image source={item.image} className="h-[300px] w-full" resizeMode="contain" />
+            <Image source={{uri: item.image}} className="h-[300px] w-full" resizeMode="contain" />
             <View className="mt-10 flex w-full flex-row items-center justify-center">
               <Text className="mx-10 text-center text-3xl font-bold text-primary">{item.title}</Text>
             </View>
