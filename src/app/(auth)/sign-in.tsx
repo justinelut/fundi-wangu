@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  ScrollView,
-  View,
-  Text,
-  Alert,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import { ScrollView, View, Text, Alert, Image, TouchableOpacity } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
@@ -16,7 +9,7 @@ import { signInSchema, SignInForm } from '@/lib/validation';
 import { useAuth } from '@/lib/appwriteprovider';
 import { Input } from '@/components/ui/input';
 import { OAuthProvider } from 'react-native-appwrite';
-import { icons } from "@/constants";
+import { icons } from '@/constants';
 
 const Login = () => {
   const { signIn, loginWithOAuth } = useAuth();
@@ -27,10 +20,15 @@ const Login = () => {
     formState: { errors },
   } = useForm<SignInForm>({
     resolver: zodResolver(signInSchema),
+    mode: 'all',
+    reValidateMode: 'onChange',
   });
 
   const loginMutation = useMutation({
     mutationFn: async (data: SignInForm) => {
+      console.log('x');
+      console.log(data);
+      console.log(errors);
       await signIn(data.email, data.password);
     },
     onSuccess: () => {
@@ -58,25 +56,22 @@ const Login = () => {
     loginMutation.mutate(data);
   };
 
+  React.useEffect(() => {
+    console.log('Form Errors:', errors);
+  }, [errors]);
+
   return (
     <ScrollView
       className="flex-1 bg-background"
-      contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
-    >
+      contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
       <View className="p-6">
-        <View className="items-center mb-8">
-          <Image
-            source={icons.Logo}
-            className="w-24 h-24 mb-4"
-            resizeMode="contain"
-          />
-          <Text className="text-2xl font-bold text-foreground">
-            Fundi Wangu
-          </Text>
+        <View className="mb-8 items-center">
+          <Image source={icons.Logo} className="mb-4 h-24 w-24" resizeMode="contain" />
+          <Text className="text-2xl font-bold text-foreground">Fundi Wangu</Text>
           <Text className="text-gray-500">Sign in to continue</Text>
         </View>
 
-        <View className="space-y-4 flex flex-col gap-y-4">
+        <View className="flex flex-col gap-y-4 space-y-4">
           <Controller
             name="email"
             control={control}
@@ -112,43 +107,39 @@ const Login = () => {
           />
 
           <TouchableOpacity className="self-end">
-            <Text className="text-blue-600 text-sm">Forgot Password?</Text>
+            <Text className="text-sm text-blue-600">Forgot Password?</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            className="bg-primary rounded-full py-4 items-center mt-4"
+            className="mt-4 items-center rounded-full bg-primary py-4"
             onPress={handleSubmit(onLoginPress)}
-            disabled={loginMutation.isPending}
-          >
-            <Text className="text-white text-lg font-semibold">
+            disabled={loginMutation.isPending}>
+            <Text className="text-lg font-semibold text-white">
               {loginMutation.isPending ? 'Signing In...' : 'Sign In'}
             </Text>
           </TouchableOpacity>
 
-          <View className="flex-row items-center my-6">
-            <View className="flex-1 h-[1px] bg-gray-300" />
+          <View className="my-6 flex-row items-center">
+            <View className="h-[1px] flex-1 bg-gray-300" />
             <Text className="mx-4 text-gray-500">or</Text>
-            <View className="flex-1 h-[1px] bg-gray-300" />
+            <View className="h-[1px] flex-1 bg-gray-300" />
           </View>
 
           <TouchableOpacity
-            className="bg-white border border-gray-300 rounded-full py-4 flex-row justify-center items-center"
+            className="flex-row items-center justify-center rounded-full bg-secondary py-4 shadow-lg active:opacity-80"
             onPress={() => googleAuthMutation.mutate()}
-            disabled={googleAuthMutation.isPending}
-          >
-            <Image source={icons.google} className="w-6 h-6 mr-2" />
-            <Text className="text-gray-700 font-medium">
-              {googleAuthMutation.isPending
-                ? 'Signing In...'
-                : 'Continue with Google'}
+            disabled={googleAuthMutation.isPending}>
+            <Image source={icons.google} className="mr-2 h-6 w-6" />
+            <Text className="font-medium text-foreground">
+              {googleAuthMutation.isPending ? 'Signing In...' : 'Continue with Google'}
             </Text>
           </TouchableOpacity>
 
-          <View className="flex-row justify-center mt-6">
+          <View className="mt-6 flex-row justify-center">
             <Text className="text-gray-500">Don't have an account?</Text>
             <Link href="/sign-up" asChild>
               <TouchableOpacity>
-                <Text className="text-blue-600 ml-1 font-bold">Sign Up</Text>
+                <Text className="ml-1 font-bold text-blue-600">Sign Up</Text>
               </TouchableOpacity>
             </Link>
           </View>
