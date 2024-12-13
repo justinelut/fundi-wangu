@@ -5,7 +5,7 @@ import { TextInput, View, Text } from 'react-native';
 export interface InputProps extends React.ComponentProps<typeof TextInput> {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  error?: string;
+  error?: any;
   label?: string;
   iconColor?: string; // Added icon color prop for dynamic color control
 }
@@ -15,48 +15,29 @@ export const Input = forwardRef<TextInput, InputProps>(
     { leftIcon, rightIcon, error, label, iconColor = 'text-gray-500', className = '', ...props },
     ref
   ) => {
+    error && console.log(error);
     return (
       <View className="space-y-2">
         {label && <Text className="text-sm font-semibold">{label}</Text>}
 
-        <View 
+        <View
           className={cn(
-            "flex-row items-center rounded-md border p-2", 
-            error 
-              ? "border-red-500" 
-              : "border-foreground"
-          )}
-        >
+            'flex-row items-center rounded-md border p-2',
+            error ? 'border-red-500' : 'border-foreground'
+          )}>
           {leftIcon && (
-            <View 
-              className={cn(
-                "mr-2", 
-                error ? "text-red-500" : iconColor
-              )}
-            >
-              {leftIcon}
-            </View>
+            <View className={cn('mr-2', error ? 'text-red-500' : iconColor)}>{leftIcon}</View>
           )}
 
           <TextInput
-            placeholderTextColor={"orange"}
+            placeholderTextColor={'orange'}
             ref={ref}
             {...props}
-            className={cn(
-              "flex-1 text-base text-foreground", 
-              className
-            )}
+            className={cn('flex-1 text-base text-foreground', className)}
           />
 
           {rightIcon && (
-            <View 
-              className={cn(
-                "ml-2", 
-                error ? "text-red-500" : iconColor
-              )}
-            >
-              {rightIcon}
-            </View>
+            <View className={cn('ml-2', error ? 'text-red-500' : iconColor)}>{rightIcon}</View>
           )}
         </View>
 

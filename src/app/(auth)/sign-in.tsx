@@ -14,21 +14,12 @@ import { icons } from '@/constants';
 const Login = () => {
   const { signIn, loginWithOAuth } = useAuth();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignInForm>({
+  const { control, handleSubmit } = useForm<SignInForm>({
     resolver: zodResolver(signInSchema),
-    mode: 'all',
-    reValidateMode: 'onChange',
   });
 
   const loginMutation = useMutation({
     mutationFn: async (data: SignInForm) => {
-      console.log('x');
-      console.log(data);
-      console.log(errors);
       await signIn(data.email, data.password);
     },
     onSuccess: () => {
@@ -53,14 +44,11 @@ const Login = () => {
   });
 
   const onLoginPress = (data: SignInForm) => {
-    console.log(data)
-    console.log(errors)
+    console.log('x');
+    console.log(data);
+
     // loginMutation.mutate(data);
   };
-
-  React.useEffect(() => {
-    console.log('Form Errors:', errors);
-  }, [errors]);
 
   return (
     <ScrollView
@@ -77,7 +65,7 @@ const Login = () => {
           <Controller
             name="email"
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
               <Input
                 placeholder="Enter your email"
                 onChangeText={onChange}
@@ -86,7 +74,7 @@ const Login = () => {
                 keyboardType="email-address"
                 autoCapitalize="none"
                 leftIcon={<Mail size={20} color="#9CA3AF" />}
-                error={errors.email?.message}
+                error={error?.message}
               />
             )}
           />
@@ -94,17 +82,19 @@ const Login = () => {
           <Controller
             name="password"
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                placeholder="Enter your password"
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-                secureTextEntry
-                autoCapitalize="none"
-                leftIcon={<Lock size={20} color="#9CA3AF" />}
-                error={errors.password?.message}
-              />
+            render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+              <View>
+                <Input
+                  placeholder="Enter your password"
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  secureTextEntry
+                  autoCapitalize="none"
+                  leftIcon={<Lock size={20} color="#9CA3AF" />}
+                  error={error?.message}
+                />
+              </View>
             )}
           />
 
