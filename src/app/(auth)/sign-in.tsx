@@ -53,7 +53,9 @@ const Login = () => {
   });
 
   const onLoginPress = (data: SignInForm) => {
-    loginMutation.mutate(data);
+    console.log(data)
+    console.log(errors)
+    // loginMutation.mutate(data);
   };
 
   React.useEffect(() => {
