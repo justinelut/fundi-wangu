@@ -47,7 +47,7 @@ const Login = () => {
     console.log('x');
     console.log(data);
 
-    // loginMutation.mutate(data);
+    loginMutation.mutate(data);
   };
 
   return (
