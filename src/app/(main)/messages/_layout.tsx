@@ -6,8 +6,8 @@ const Layout = () => {
   return (
     <ScreenWrapper fullBackground={true}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="messages" options={{ headerShown: false }} />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="[chatid]" options={{ headerShown: false }} />
       </Stack>
     </ScreenWrapper>
   );
