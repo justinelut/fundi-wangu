@@ -7,7 +7,7 @@ const Layout = () => {
     <ScreenWrapper fullBackground={true}>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="[chatid]" options={{ headerShown: false }} />
+        {/* <Stack.Screen name="[chatid]" options={{ headerShown: false }} /> */}
       </Stack>
     </ScreenWrapper>
   );

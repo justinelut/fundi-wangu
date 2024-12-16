@@ -4,7 +4,7 @@ import { useAuth } from "@/lib/appwriteprovider"; // Adjust path as necessary
 const Page = () => {
   const { isSignedIn } = useAuth();
 
-  if (isSignedIn) return <Redirect href="/(main)/home" />;
+  if (!isSignedIn) return <Redirect href="/(main)/home" />;
 
   return <Redirect href="/(auth)/welcome" />;
 };
