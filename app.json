@@ -47,6 +47,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": "https://uber.dev/"
+      },
+      "eas": {
+        "projectId": "6c24a6c0-b282-44ee-a1b4-b7eb4c3de762"
+      }
     }
   }
 }
