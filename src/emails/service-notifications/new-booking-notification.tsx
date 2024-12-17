@@ -1,0 +1,1 @@
+// new-booking-notification.tsx content

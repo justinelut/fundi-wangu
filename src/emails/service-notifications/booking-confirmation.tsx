@@ -1,0 +1,1 @@
+// booking-confirmation.tsx content
