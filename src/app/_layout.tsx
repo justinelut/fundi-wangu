@@ -12,27 +12,21 @@ import { View } from 'react-native';
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
-  const [loaded] = useFonts({
-    'Jakarta-Bold': require('@/assets/fonts/PlusJakartaSans-Bold.ttf'),
-    'Jakarta-ExtraBold': require('@/assets/fonts/PlusJakartaSans-ExtraBold.ttf'),
-    'Jakarta-ExtraLight': require('@/assets/fonts/PlusJakartaSans-ExtraLight.ttf'),
-    'Jakarta-Light': require('@/assets/fonts/PlusJakartaSans-Light.ttf'),
-    'Jakarta-Medium': require('@/assets/fonts/PlusJakartaSans-Medium.ttf'),
-    'Jakarta': require('@/assets/fonts/PlusJakartaSans-Regular.ttf'),
-    'Jakarta-SemiBold': require('@/assets/fonts/PlusJakartaSans-SemiBold.ttf'),
-  });
+  // const [loaded] = useFonts({
+  //   'Jakarta-Bold': require('@/assets/fonts/PlusJakartaSans-Bold.ttf'),
+  //   'Jakarta-ExtraBold': require('@/assets/fonts/PlusJakartaSans-ExtraBold.ttf'),
+  //   'Jakarta-ExtraLight': require('@/assets/fonts/PlusJakartaSans-ExtraLight.ttf'),
+  //   'Jakarta-Light': require('@/assets/fonts/PlusJakartaSans-Light.ttf'),
+  //   'Jakarta-Medium': require('@/assets/fonts/PlusJakartaSans-Medium.ttf'),
+  //   'Jakarta': require('@/assets/fonts/PlusJakartaSans-Regular.ttf'),
+  //   'Jakarta-SemiBold': require('@/assets/fonts/PlusJakartaSans-SemiBold.ttf'),
+  // });
 
   const { colorScheme } = useColorScheme();
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
+    SplashScreen.hideAsync();
+  });
 
   return (
     <View className={`flex-1 ${colorScheme === 'dark' ? 'dark' : ''}`}>
