@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { CheckCircle, XCircle, ArrowRight } from 'lucide-react-native';
 import { Link } from 'expo-router';
+import { ActionBar, Button, Card, ColorSwatch, ExpandableSection } from 'react-native-ui-lib';
+import ExpandableSectionScreen from './expander';
 
 export default function MyBookings() {
   const primaryColor = '#f97316'; // Example: Orange (Primary)
@@ -93,8 +95,7 @@ export default function MyBookings() {
                         Amount Paid <Text className="font-bold">${booking.amountPaid}</Text>
                       </Text>
                     </View>
-                    <Pressable
-                      className={`bg-primary rounded-full px-4 py-2 shadow-md`}>
+                    <Pressable className={`rounded-full bg-primary px-4 py-2 shadow-md`}>
                       <Text className="text-sm font-semibold text-white">Book Again</Text>
                     </Pressable>
                   </View>
@@ -108,6 +109,17 @@ export default function MyBookings() {
             ))}
         </View>
       ))}
+      {/* <View marginT-40>
+        <ActionBar
+          actions={[
+            { label: 'Delete', onPress: () => console.log('delete') },
+            { label: 'Replace Photo', onPress: () => console.log('replace photo') },
+            { label: 'Edit', onPress: () => console.log('edit') },
+          ]}
+        />
+        <Button label={'Press'} className="bg-white" backgroundColor="orange" />
+      </View> */}
+     
     </ScrollView>
   );
 }
