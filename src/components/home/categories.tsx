@@ -47,7 +47,7 @@ const categories = [
 
 const Categories = () => {
   return (
-    <View className="px-4 py-6 bg-white">
+    <View className="px-4 py-6 bg-background">
       <View className="flex-row justify-between items-center mb-6">
         <Text className={cn(
           "text-2xl font-bold",
@@ -74,7 +74,7 @@ const Categories = () => {
             >
               <View className={cn(
                 "aspect-square rounded-2xl mb-2",
-                "bg-secondary/5 items-center justify-center"
+                "bg-accent items-center justify-center"
               )}>
                 <Image
                   source={{ uri: category.image }}
