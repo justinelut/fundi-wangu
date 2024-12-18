@@ -3,7 +3,7 @@ import { Star } from "lucide-react-native";
 import { Image, Text, View } from "react-native";
 
 export const ServiceItem = ({ item }) => (
-    <View className="mb-4 max-h-[300px] min-h-[300px] w-[200px] flex-1  px-1">
+    <View className="mb-4 max-h-[300px] min-h-[300px] w-[200px] flex-1 px-2">
       <Image source={{ uri: item.image }} className="mb-2 h-40 w-full rounded-lg" />
       <View className="mb-1 flex-row items-center">
         {[...Array(5)].map((_, index) => (

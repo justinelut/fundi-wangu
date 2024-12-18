@@ -1,19 +1,10 @@
-import { FavouritesSection } from "@/components/account/favourites";
-import { ProfileSection } from "@/components/account/profile";
-import { View } from "react-native";
+import { View, Text } from 'react-native'
+import React from 'react'
 
-const AccountScreen = () => {
-    return (
-      <View className="flex-1 bg-gray-100 p-4">
-        <ProfileSection />
-        <FavouritesSection />
-        {/* <OrderHistorySection />
-        <WalletSection />
-        <AccountSettingsSection />
-        <LogOutButton /> */}
-      </View>
-    );
-  };
-
-  export default AccountScreen
-  
+export default function Account() {
+  return (
+    <View className='h-[400px] w-[200px] bg-primary'>
+      <Text className='text-accent/80 blur'>index</Text>
+    </View>
+  )
+}

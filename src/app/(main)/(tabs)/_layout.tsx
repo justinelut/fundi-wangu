@@ -17,7 +17,7 @@ const TabIcon = ({
       className={`items-center justify-center rounded-full px-4 py-1 ${
         focused ? 'bg-orange-200' : 'bg-transparent'
       }`}>
-      <Icon size={24} color={focused ? '#f97316' : '#9ca3af'} />
+      <Icon fill={focused ? '#f97316' : '#fff'} size={24} color={focused ? '#f97316' : '#9ca3af'} />
     </View>
     <Text
       className={`mt-1 w-full text-xs ${

@@ -10,7 +10,7 @@ const FeaturedServices = () => {
   return (
     <View className='bg-background'>
       <View className="mb-2 flex-row items-center justify-between">
-        <Text className="px-2 text-lg font-bold text-foreground">Featured Services</Text>
+        <Text className="px-4 text-lg font-bold text-foreground">Featured Services</Text>
         <TouchableOpacity>
           <Text className="px-2 text-primary">See All</Text>
         </TouchableOpacity>
@@ -19,6 +19,7 @@ const FeaturedServices = () => {
         data={services}
         renderItem={({ item }) => <ServiceItem item={item} />}
         estimatedItemSize={300}
+        style={{gap: '100px', display:'flex', }}
         horizontal
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}

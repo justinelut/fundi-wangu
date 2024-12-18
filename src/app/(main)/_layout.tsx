@@ -7,6 +7,7 @@ const Layout = () => {
     <ScreenWrapper fullBackground={true}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="[details]" options={{ headerShown: false }} />
         <Stack.Screen name="messages" options={{ headerShown: false }} />
       </Stack>
     </ScreenWrapper>
