@@ -1,0 +1,4 @@
+Starting project at /home/justine/Desktop/projects/fundi-wangu
+› Port 8081 is running this app in another window
+  /home/justine/Desktop/projects/fundi-wangu (pid 3628)
+› Skipping dev server

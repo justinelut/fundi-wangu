@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
-import { Home, LayoutGrid, NotepadText, MessageCircle, User, List } from 'lucide-react-native';
+import { Home, LayoutGrid, NotepadText, User, List } from 'lucide-react-native';
 import { useColorScheme } from 'nativewind';
 
 const TabIcon = ({
@@ -33,9 +33,9 @@ export default function Layout() {
 
   // Determine background color based on color scheme
   const backgroundColor = colorScheme === 'dark' ? '#000000' : '#ffffff';
+
   return (
     <Tabs
-      initialRouteName="home"
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
@@ -45,20 +45,19 @@ export default function Layout() {
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 0.1,
           shadowRadius: 4,
-
           height: 70,
-          flexDirection: 'row', // Ensure tabs are laid out horizontally
-          alignItems: 'center', // Vertically center the icons
-          justifyContent: 'space-evenly', // Evenly space out the tabs
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
         },
         tabBarButton: (props) => (
           <Pressable
             {...props}
             className="flex items-center"
-            android_ripple={null} // Disable the ripple effect on Android
+            android_ripple={null}
             style={({ pressed }) => [
               { flex: 1, justifyContent: 'center', alignItems: 'center' },
-              pressed && { opacity: 1 }, // Simulates WhatsApp's click effect without a background
+              pressed && { opacity: 1 },
             ]}
           />
         ),
@@ -67,7 +66,9 @@ export default function Layout() {
         name="home"
         options={{
           title: 'Home',
-          headerShown: false,
+          headerShown: true, // Display header for Home tab
+          headerStyle: { backgroundColor: backgroundColor },
+          headerTintColor: colorScheme === 'dark' ? '#fff' : '#000',
           tabBarIcon: ({ focused }) => <TabIcon Icon={Home} focused={focused} label="Home" />,
         }}
       />
@@ -75,7 +76,9 @@ export default function Layout() {
         name="categories"
         options={{
           title: 'Categories',
-          headerShown: false,
+          headerShown: true, // Display header for Categories tab
+          headerStyle: { backgroundColor: backgroundColor },
+          headerTintColor: colorScheme === 'dark' ? '#fff' : '#000',
           tabBarIcon: ({ focused }) => (
             <TabIcon Icon={LayoutGrid} focused={focused} label="Categories" />
           ),
@@ -85,7 +88,9 @@ export default function Layout() {
         name="listings"
         options={{
           title: 'Listings',
-          headerShown: false,
+          headerShown: true, // Display header for Listings tab
+          headerStyle: { backgroundColor: backgroundColor },
+          headerTintColor: colorScheme === 'dark' ? '#fff' : '#000',
           tabBarIcon: ({ focused }) => (
             <TabIcon Icon={List} focused={focused} label="Listings" />
           ),
@@ -95,18 +100,21 @@ export default function Layout() {
         name="bookings"
         options={{
           title: 'Bookings',
-          headerShown: false,
+          headerShown: true, // Display header for Bookings tab
+          headerStyle: { backgroundColor: backgroundColor },
+          headerTintColor: colorScheme === 'dark' ? '#fff' : '#000',
           tabBarIcon: ({ focused }) => (
             <TabIcon Icon={NotepadText} focused={focused} label="Bookings" />
           ),
         }}
       />
-     
       <Tabs.Screen
         name="account"
         options={{
           title: 'Account',
-          headerShown: false,
+          headerShown: true, // Display header for Account tab
+          headerStyle: { backgroundColor: backgroundColor },
+          headerTintColor: colorScheme === 'dark' ? '#fff' : '#000',
           tabBarIcon: ({ focused }) => <TabIcon Icon={User} focused={focused} label="Account" />,
         }}
       />

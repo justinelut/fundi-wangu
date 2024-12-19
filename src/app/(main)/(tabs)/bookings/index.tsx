@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { CheckCircle, XCircle, ArrowRight } from 'lucide-react-native';
 import { Link } from 'expo-router';
-import { ActionBar, Button, Card, ColorSwatch, ExpandableSection } from 'react-native-ui-lib';
+import { ActionBar, Button, Card, ColorSwatch, DateTimePicker, ExpandableSection } from 'react-native-ui-lib';
 import ExpandableSectionScreen from './expander';
 
 export default function MyBookings() {
@@ -119,6 +119,7 @@ export default function MyBookings() {
         />
         <Button label={'Press'} className="bg-white" backgroundColor="orange" />
       </View> */}
+      {/* <DateTimePicker title={'Select time'} placeholder={'Placeholder'} mode={'time'}/> */}
      
     </ScrollView>
   );
