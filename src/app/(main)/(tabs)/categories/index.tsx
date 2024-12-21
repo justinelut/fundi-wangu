@@ -62,11 +62,23 @@ const ListingItem: React.FC<Listing> = ({ title, description, image, status, dat
   </View>
 );
 
-const CategoryListingsScreen: React.FC<CategoryListingsScreenProps> = ({
-  category,
-  listings,
-  onBack,
-}) => {
+const CategoryListingsScreen: React.FC<CategoryListingsScreenProps> = ({ onBack }) => {
+  const category = {
+    name: 'Business', // Example category data
+    icon: 'Business', // Corresponding icon name
+  };
+
+  const listings = [
+    {
+      id: 1,
+      title: 'Business Consulting',
+      description: 'Expert advice on business strategy.',
+      image: 'https://example.com/image.jpg',
+      status: 'published',
+      date: '2024-12-21',
+    },
+    // Add more listings here...
+  ];
   const IconComponent = serviceIcons[category.icon];
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { services } from './home-screen-data';
 import { ServiceItem } from './service-item';
@@ -13,11 +13,13 @@ const BestServices = () => {
           <Text className="px-1 text-primary">See All</Text>
         </TouchableOpacity>
       </View>
-      <FlashList
+      <FlatList
         data={services}
         renderItem={({ item }) => <ServiceItem item={item} />}
-        estimatedItemSize={300}
+        keyExtractor={(item) => item.id.toString()}
         numColumns={2} // Two items per row
+        bounces={false}
+        columnWrapperClassName="flex flex-row gap-x-4"
         showsVerticalScrollIndicator={false}
       />
     </View>

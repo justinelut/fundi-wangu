@@ -27,9 +27,9 @@ export default function Layout() {
   useEffect(() => {
     SplashScreen.hideAsync();
   });
-// className={`flex-1 ${colorScheme === 'dark' ? 'dark' : 'light'}`}
+
   return (
-    <View>
+    <View className={`flex-1 ${colorScheme === 'dark' ? 'dark' : 'light'}`}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <QueryProvider>
           <AuthProvider>

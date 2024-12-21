@@ -3,7 +3,7 @@ import { Star } from "lucide-react-native";
 import { Image, Text, View } from "react-native";
 
 export const ServiceItem = ({ item }) => (
-    <View className="mb-4 max-h-[300px] min-h-[300px] w-[200px] flex-1 px-2">
+    <View className="mb-4 max-h-[300px] min-h-[300px] w-[200px] px-1">
       <Image source={{ uri: item.image }} className="mb-2 h-40 w-full rounded-lg" />
       <View className="mb-1 flex-row items-center">
         {[...Array(5)].map((_, index) => (
@@ -14,7 +14,7 @@ export const ServiceItem = ({ item }) => (
             fill={index < item.rating ? '#FFC107' : '#E0E0E0'}
           />
         ))}
-        <Text className="ml-1 text-sm text-gray-500">({item.reviews} Reviews)</Text>
+        <Text className="text-sm text-gray-500">({item.reviews} Reviews)</Text>
       </View>
       <Text className="mb-1 text-lg font-semibold text-foreground" numberOfLines={1}>
         {item.title}
