@@ -82,7 +82,7 @@ const Categories = () => {
                       'items-center justify-center bg-accent'
                     )}>
                     <Image
-                      source={{ uri: category.image }}
+                      source={{ uri: category.icon }}
                       className="h-[60%] w-[60%]"
                       resizeMode="contain"
                     />

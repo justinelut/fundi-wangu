@@ -29,7 +29,7 @@ export default function Layout() {
   });
 
   return (
-    <View className={`flex-1 ${colorScheme === 'dark' ? 'dark' : 'light'}`}>
+    <View className={`flex-1 ${colorScheme === 'dark' ? 'dark' : ''}`}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <QueryProvider>
           <AuthProvider>

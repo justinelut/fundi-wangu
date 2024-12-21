@@ -29,6 +29,7 @@ import {
   Ticket,
 } from 'lucide-react-native';
 import { useAuth } from '@/lib/appwriteprovider';
+import ThemeSwitcher from '@/lib/theme-switcher';
 
 const SettingItem = ({ icon, title, onPress }) => (
   <TouchableOpacity
@@ -138,12 +139,8 @@ const ProfileScreen = () => {
         <View className="w-full flex-col items-center justify-between rounded-lg bg-white p-4">
           <View className="w-full flex-row items-center justify-between rounded-lg p-4">
             <Text className="text-base font-medium text-gray-800">Dark Mode</Text>
-            <Switch
-              value={isDarkMode}
-              onValueChange={setIsDarkMode}
-              trackColor={{ false: '#FFE0B2', true: '#FB8C00' }}
-              thumbColor={isDarkMode ? '#F57C00' : '#FFE0B2'}
-            />
+            <ThemeSwitcher />
+           
           </View>
           <SettingItem icon={<HelpCircle size={20} color="#F57C00" />} title="FAQs" />
           <SettingItem icon={<MessageSquare size={20} color="#F57C00" />} title="Contact Support" />

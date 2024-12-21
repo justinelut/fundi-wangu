@@ -40,7 +40,7 @@ export default function Details() {
 
     //   <LogoutScreen />
     //   {/* <SearchBar /> */}
-    //   <ThemeSwitcher />
+      // <ThemeSwitcher />
 
     //   <BestServices />
     //   <ReusableBottomSheet>

@@ -15,6 +15,7 @@ import {
   Edit,
   Eye,
 } from 'lucide-react-native';
+import { Link } from 'expo-router';
 
 const { width } = Dimensions.get('window');
 
@@ -155,29 +156,18 @@ const CreateListingButton = () => {
     };
   });
 
-  const handlePress = () => {
-    if (expanded) {
-      animatedWidth.value = 60;
-    } else {
-      animatedWidth.value = width - 32;
-    }
-    setExpanded(!expanded);
-  };
+  const handlePress = () => {};
 
   return (
     <Animated.View
       className="absolute bottom-6 right-4 overflow-hidden rounded-full bg-primary shadow-lg"
       style={[animatedStyle, { elevation: 5 }]}>
-      <TouchableOpacity className="flex-row items-center justify-between p-4" onPress={handlePress}>
-        {expanded ? (
-          <>
-            <Text className="flex-1 text-lg font-bold text-white">Create Listing</Text>
-            <X size={24} color="#FFFFFF" />
-          </>
-        ) : (
-          <Plus size={32} color="#FFFFFF" />
-        )}
-      </TouchableOpacity>
+      <Link
+        href="/listings/(create)/listing-details"
+        className="flex-row items-center justify-between p-4"
+        onPress={handlePress}>
+        <Plus size={32} color="#FFFFFF" />
+      </Link>
     </Animated.View>
   );
 };
@@ -186,7 +176,7 @@ const ListingsPage = () => {
   return (
     <SafeAreaView className="flex-1 bg-background">
       <ScrollView className="flex-1 px-4 pt-6">
-        <Text className="mb-6 text-3xl font-bold text-foreground">Service Categories</Text>
+        <Text className="mb-6 text-3xl font-bold text-foreground">My listings</Text>
         {categories.map((category) => (
           <CategoryCard key={category.id} {...category} />
         ))}

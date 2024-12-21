@@ -18,7 +18,7 @@ const HeaderWithSearchBar = () => {
   return (
     <View className="relative">
       {/* Sticky Header */}
-      <View className="flex-row items-center justify-between px-4 py-6 shadow-md sticky top-0 z-10 bg-background">
+      <View className="sticky top-0 z-10 flex-row items-center justify-between bg-background px-4 py-6 shadow-md">
         {/* Left Section - Logo */}
         <View className="flex-row items-center">
           <Text className="text-xl font-bold dark:text-white">Fundi Wangu</Text>
@@ -26,13 +26,12 @@ const HeaderWithSearchBar = () => {
 
         {/* Right Section - Notification Icons */}
         <View className="flex-row items-center gap-x-4 text-foreground">
-         
           <TouchableOpacity>
-          <Link href="/(main)/messages">
-            <MessageCircle size={24} color="#fff" />
+            <Link href="/(main)/messages">
+              <MessageCircle size={24} color="#fff" />
             </Link>
           </TouchableOpacity>
-         
+
           <TouchableOpacity onPress={handleNotificationClick}>
             <Bell size={24} color="#fff" />
           </TouchableOpacity>
@@ -45,9 +44,7 @@ const HeaderWithSearchBar = () => {
       </View>
 
       {/* Content area that will be scrollable */}
-      <View className="flex-1">
-        {/* Content of the screen can go here */}
-      </View>
+      <View className="flex-1">{/* Content of the screen can go here */}</View>
     </View>
   );
 };

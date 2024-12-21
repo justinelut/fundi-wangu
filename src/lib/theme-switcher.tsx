@@ -12,7 +12,7 @@ import { useColorScheme } from 'nativewind';
 
 const ThemeSwitcher: React.FC = () => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
-  const isDarkMode = colorScheme === "dark";
+  const isDarkMode = colorScheme === 'dark';
 
   // Animated value for the toggle progress
   const progress = useSharedValue(isDarkMode ? 1 : 0);
@@ -24,19 +24,10 @@ const ThemeSwitcher: React.FC = () => {
 
   // Animated styles for the slider
   const animatedSliderStyle = useAnimatedStyle(() => {
-    const translateX = interpolate(
-      progress.value,
-      [0, 1],
-      [0, 50],
-      Extrapolate.CLAMP
-    );
+    const translateX = interpolate(progress.value, [0, 1], [0, 50], Extrapolate.CLAMP);
 
     // Dynamic background color based on progress
-    const backgroundColor = interpolate(
-      progress.value,
-      [0, 0.5, 1],
-      ['white', 'white', 'black']
-    );
+    const backgroundColor = interpolate(progress.value, [0, 0.5, 1], ['white', 'white', 'black']);
 
     return {
       position: 'absolute',
@@ -55,65 +46,32 @@ const ThemeSwitcher: React.FC = () => {
 
   // Icon opacity calculations
   const sunOpacity = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      progress.value,
-      [0, 0.5, 1],
-      [1, 0, 0],
-      Extrapolate.CLAMP
-    );
+    const opacity = interpolate(progress.value, [0, 0.5, 1], [1, 0, 0], Extrapolate.CLAMP);
 
     return { opacity };
   });
 
   const moonOpacity = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      progress.value,
-      [0, 0.5, 1],
-      [0, 0, 1],
-      Extrapolate.CLAMP
-    );
+    const opacity = interpolate(progress.value, [0, 0.5, 1], [0, 0, 1], Extrapolate.CLAMP);
 
     return { opacity };
   });
 
   return (
-    <TouchableOpacity 
-      onPress={toggleTheme} 
-      className="relative bg-secondary dark:bg-secondary-foreground rounded-full w-[100px] h-[50px] flex-row items-center p-1"
-    >
+    <TouchableOpacity
+      onPress={toggleTheme}
+      className="relative h-[50px] w-[100px] flex-row items-center rounded-full bg-secondary p-1 dark:bg-secondary-foreground">
       {/* Background Slider */}
-      <Animated.View 
-        style={animatedSliderStyle}
-      />
+      <Animated.View style={animatedSliderStyle} />
 
       {/* Sun Icon */}
-      <Animated.View 
-        style={[
-          { position: 'absolute', left: 10 },
-          sunOpacity
-        ]}
-        className="z-10"
-      >
-        <Sun 
-          size={24} 
-          color="orange"
-          className="text-primary dark:text-primary-foreground" 
-        />
+      <Animated.View style={[{ position: 'absolute', left: 10 }, sunOpacity]} className="z-10">
+        <Sun size={24} color="orange" className="dark:text-primary-foreground text-primary" />
       </Animated.View>
 
       {/* Moon Icon */}
-      <Animated.View 
-        style={[
-          { position: 'absolute', right: 10 },
-          moonOpacity
-        ]}
-        className="z-10"
-      >
-        <Moon 
-          size={24} 
-          color="gray"
-          className="text-primary-foreground dark:text-primary" 
-        />
+      <Animated.View style={[{ position: 'absolute', right: 10 }, moonOpacity]} className="z-10">
+        <Moon size={24} color="gray" className="text-primary-foreground dark:text-primary" />
       </Animated.View>
     </TouchableOpacity>
   );
